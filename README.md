@@ -18,7 +18,7 @@ Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, qu�
 
 ## 📋 Índice de mi Proyecto
 
----
+
 
 ### **1. ⚙️ Hardware y Componentes**
 
@@ -26,7 +26,7 @@ Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, qu�
 * **1.2. 🔌 Esquema de conexión**
 * **1.3. 📷 Esquemas & simuladores**
 
----
+
 
 ### **2. 🧠 Lógica del Sistema**
 
@@ -34,21 +34,21 @@ Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, qu�
 * **2.2. 💻 Código Arduino destacado**
 * **2.3. 🧠 Funcionamiento del código**
 
----
+
 
 ### **3. 📈 Estado y Desarrollo**
 
 * **3.1. 🧪 Estado actual**
 * **3.2. 🦋 Nueva rama, progreso del mes de Agosto 2025**
 
----
+
 
 ### **4. 📚Futuro y Documentación**
 
 * **4.1. 🚀 Posibles mejoras futuras**
 * **4.2. 📚 Documentación**
 
----
+
 
 ### **5. ❤️ Agradecimientos y Licencia**
 
