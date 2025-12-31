@@ -1,4 +1,5 @@
-# Medidor de Salinidad Básico con Arduino UNO
+# Proyecto Hugo - Medidor de Salinidad Básico con Arduino UNO
+
 
 ![Arduino](https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=arduino&logoColor=white)
 ![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
@@ -10,8 +11,10 @@
 ![Issues 0 open](https://img.shields.io/badge/issues-0%20open-black?style=for-the-badge&logo=github&logoColor=white)
 ![En Desarrollo](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow?style=for-the-badge)
 
-> Dispositivo básico para medir la conductividad eléctrica de una muestra líquida (simulada con un potenciómetro), mostrando en pantalla LCD 16x2 I2C el voltaje, valor ADC y una estimación simple de la conductividad. Está preparado para incorporar una fórmula profesional que convierta la conductividad a salinidad real (g/L, ppt, etc) cuando se disponga.
 
+> Dispositivo experimental de medición de salinidad con pantalla LCD 16x2 I2C, basado en Arduino, utilizando la conductividad eléctrica como variable primaria y aplicando modelos matemáticos para estimar salinidad, incluye compensación por temperatura y pH.
+El sistema está diseñado con fines educativos, experimentales y de prototipado, siguiendo una lógica similar a la utilizada en equipos reales de instrumentación analítica.
+NO constituye un dispositivo médico ni realiza diagnósticos clínicos.
 Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, química, biología, etc
 
 ---
@@ -66,8 +69,10 @@ Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, qu�
 |------------------------|----------------------|
 | Arduino UNO / Nano / compatible | 1                    |
 | Sensor de conductividad (analógico) | 1                    |
+| Sensor de temperatura LM35 | 1                    |
 | Pantalla OLED SSD1306 (I2C) o LCD 16x2 I2C | 1              |
 | Pulsador                | 1                    |
+| Sensor de pH (analógico) | 1   
 | Protoboard o placa perforada | 1                    |
 | Cables dupont           | Varios               |
 
@@ -77,6 +82,16 @@ Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, qu�
 
 - **Sensor de conductividad:**  
   - Salida analógica → Pin `A0` del Arduino
+
+- **Sensor de temperatura (LM35):**  
+  - VCC → 5V del Arduino
+  - Vout → Pin A1 del Arduino
+  - GND → GND del Arduino
+
+- **Sensor de pH (o potenciómetro simulando pH):**  
+  - Salida analógica (AO o patita del medio) → Pin A2 del Arduino
+  - VCC → 5V del Arduino
+  - GND → GND del Arduino
 
 - **Pantalla OLED SSD1306 (I2C) o LCD 16x2 I2C:**  
   - SDA → Pin `A4` (Arduino UNO/Nano)  
@@ -100,6 +115,19 @@ Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, qu�
 
 *Figura 1: Diagrama de conexión entre Arduino, sensor de conductividad, pantalla y pulsador.*
 
+
+## Evolución del diseño del circuito
+
+### Versión 1 — Medidor básico de salinidad
+![Esquema de conexión](esquema_conexion.png)
+
+⬇️ ⬇️ ⬇️  
+Se agrega medición de temperatura (LM35) y pH para compensación de conductividad  
+⬇️ ⬇️ ⬇️
+
+### Versión 2 — Medidor de salinidad con compensación
+![Esquema de conexión 2](esquema_conexion2.png)
+
 ---
 
 ## 📷 Desde los simuladores
@@ -116,117 +144,145 @@ Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, qu�
 
 ## 🧠 Funcionamiento del sistema
 
-- Lee periódicamente el valor analógico del sensor (potenciómetro en este prototipo) conectado al pin A0.  
-- Convierte ese valor ADC a voltaje y calcula una conductividad aproximada usando un valor máximo predefinido (50 mS/cm).  
-- Muestra en la pantalla LCD:  
-  - Voltaje medido  
-  - Conductividad estimada (mS/cm)  
-  - Valor ADC (0-1023)  
-- Envía los mismos datos por el puerto serie para monitoreo externo.  
-- Permite controlar el estado con un botón:  
-  - Pulsación corta: alterna entre medición activa y pausa  
-  - En pausa, muestra mensaje indicándolo y detiene la actualización de datos  
+El sistema realiza un proceso de medición, compensación y visualización de datos de forma periódica, siguiendo los pasos que se describen a continuación:
+
+### 📊 Adquisición de datos
+- Lee periódicamente el valor analógico del **sensor de conductividad** (potenciómetro en este prototipo) conectado al pin **A0**.
+- Lee el valor analógico del **sensor de temperatura LM35** conectado al pin **A1**.
+- Lee el valor analógico del **sensor de pH** (o potenciómetro de simulación) conectado al pin **A2**.
 
 ---
 
-##  💻 Código Arduino destacado
+### 🔢 Procesamiento de señales
+- Convierte los valores **ADC (0–1023)** a **voltaje**.
+- Calcula una **conductividad aproximada** utilizando un valor máximo predefinido (**50 mS/cm**, ajustable por calibración).
+- Aplica **compensación por temperatura** para corregir la conductividad medida.
+- Aplica un **factor de corrección por pH** para mejorar la coherencia química de la medición.
+- Calcula una **estimación de salinidad** a partir de la conductividad compensada, utilizando un modelo matemático seleccionable (lineal, cuadrático o cúbico).
+
+---
+
+### 🖥️ Visualización
+- Muestra en la pantalla **LCD 16x2 I2C u OLED I2C**:
+  - Conductividad compensada (mS/cm)
+  - Temperatura (°C)
+  - Valor estimado de pH
+  - Salinidad estimada (g/L)
+- La pantalla se actualiza a intervalos regulares configurables.
+
+---
+
+### 🔌 Comunicación serial
+- Envía los mismos datos por el **puerto serie**, permitiendo:
+  - Monitoreo externo
+  - Registro de datos
+  - Análisis posterior
+
+---
+
+### 🔘 Control mediante botón
+- Un **pulsador** permite controlar el estado del sistema:
+  - **Pulsación corta**: alterna entre **medición activa** y **pausa**
+- En modo pausa:
+  - Se detiene la actualización de datos
+  - Se muestra un mensaje indicándolo en la pantalla
+
+---
+
+> ℹ️ El sistema está diseñado de forma modular, permitiendo reemplazar sensores simulados por sensores reales sin modificar la estructura principal del código.
+
+---
+
+## 💻 Código Arduino destacado (versión actualizada)
 
 - Usa la librería `LiquidCrystal_I2C` para controlar la pantalla LCD 16x2 vía I2C.  
-- Implementa antirrebote software para lectura estable del botón.  
-- La fórmula para convertir ADC a conductividad está parametrizada con una variable `maxConductividad`.  
-- **Preparado para incorporar la fórmula profesional que convierta conductividad a salinidad real**, con un bloque comentado para añadir la ecuación bioquímica cuando esté disponible:  
+- Implementa **antirrebote software** para lectura estable del botón con `INPUT_PULLUP`.  
+- Integra **tres entradas analógicas**:
+  - **A0** → Sensor de conductividad (potenciómetro en el prototipo)
+  - **A1** → Sensor de temperatura **LM35**
+  - **A2** → Sensor de **pH analógico** (o potenciómetro de simulación)
+- La conversión de ADC a conductividad está parametrizada mediante `maxConductividad`.  
+- Incorpora **compensación por temperatura** y **factor correctivo por pH** antes del cálculo final.  
+- Permite seleccionar **modelo matemático lineal, cuadrático o cúbico** para convertir conductividad compensada a salinidad.  
+- Preparado para reemplazar los coeficientes por una **ecuación bioquímica real** validada profesionalmente.
 
 ```cpp
-// ⚠️ FÓRMULA DE CALIBRACIÓN PENDIENTE:
-// Aquí se debe ingresar la ecuación proporcionada por el profesional bioquímico
-// para convertir la conductividad (en mS/cm) a salinidad (en g/L, ppt, etc).
-// Ejemplo cuando esté disponible:
-// float salinidad = 0.42 * pow(conductividad, 2) - 1.6 * conductividad + 0.9;
+// ⚠️ FÓRMULA DE CALIBRACIÓN PROFESIONAL (PENDIENTE)
+// Reemplazar coeficientes cuando se disponga de datos clínicos reales
+// Ejemplo:
+// float salinidad = a * pow(condensidad, 2) + b * conductividad + c;
 ```
 
 ---
 
-## 🧠 Funcionamiento del código 
 
-💻 1. Librerías y creación del objeto LCD
+## 🧠 Funcionamiento del código (actualizado)
+
+---
+
+## 💻 1. Librerías y creación del objeto LCD
 
 ```cpp
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
+#include <math.h>
+
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 ```
-
-Se importan las librerías necesarias para manejar la pantalla LCD por comunicación I2C.
-lcd(0x27, 16, 2) el display está en la dirección 0x27, con 16 columnas y 2 filas.
-
+Se importan las librerías necesarias para manejar la pantalla LCD vía I2C y funciones matemáticas avanzadas.  
+El display opera en la dirección `0x27`, con 16 columnas y 2 filas.
 
 ---
 
-👾 2. Pines y variables globales
+## 👾 2. Pines y variables globales
 
 ```cpp
-const int sensorPin = A0;
-const int buttonPin = 2;
+const int pinConductividad = A0;
+const int pinTemperatura   = A1;
+const int pinPH            = A2;
+const int buttonPin        = 2;
+
 float maxConductividad = 50.0;
 bool medirActivo = true;
 bool botonPresionado = false;
 ```
-
-`sensorPin` es donde está conectado el potenciómetro (A0).
-
-`buttonPin` es el botón para pausar o reanudar.
-
-`maxConductividad` es el valor máximo que se puede medir (para escalar el resultado).
-
-`medirActivo` indica si está midiendo o en pausa.
-
-`botonPresionado` evita que el botón se dispare varias veces seguidas.
-
-
+- `A0` recibe la señal analógica proporcional a la conductividad.  
+- `A1` recibe la salida del LM35 (10 mV/°C).  
+- `A2` recibe la señal del módulo de pH.  
+- El botón permite alternar entre medición activa y pausa.  
+- `maxConductividad` escala el valor del ADC a mS/cm.
 
 ---
 
-⏱️ 3. Variables para el tiempo de lectura
+## ⏱️ 3. Variables de temporización
 
 ```cpp
 unsigned long ultimaLectura = 0;
 const unsigned long intervaloLectura = 300;
 ```
-
-Permiten que la medición se actualice cada 300 milisegundos, sin usar delay().
-
+Controlan la frecuencia de muestreo (300 ms) sin bloquear el programa con `delay()`.
 
 ---
 
-🚀 4. setup()
+## 🚀 4. setup()
 
 ```cpp
 void setup() {
-  pinMode(sensorPin, INPUT);
   pinMode(buttonPin, INPUT_PULLUP);
   lcd.init();
   lcd.backlight();
   Serial.begin(9600);
-  lcd.setCursor(0, 0);
   lcd.print("Medidor Salinidad");
-  lcd.setCursor(0, 1);
-  lcd.print("Iniciando...");
   delay(2000);
   lcd.clear();
 }
 ```
-
-Configura los pines.
-
-Inicializa el LCD y la comunicación serial.
-
-Muestra un mensaje de inicio por 2 segundos.
-
-
+Inicializa el LCD, la comunicación serial y el botón.  
+Muestra un mensaje de arranque para indicar que el sistema está operativo.
 
 ---
 
-🔁 5. loop() (lo que se repite siempre, también es el corazón del programa)
+## 🔁 5. loop() – núcleo del sistema
 
 ```cpp
 void loop() {
@@ -234,96 +290,84 @@ void loop() {
 
   if (medirActivo && (millis() - ultimaLectura >= intervaloLectura)) {
     ...
-    mostrarLectura(adc, voltaje, conductividad);
+    mostrarLectura(condFinal, salinidad, temperatura, pH);
     ...
     ultimaLectura = millis();
   }
-
-  if (!medirActivo) {
-    static bool pausaMostrada = false;
-    if (!pausaMostrada) {
-      ...
-      pausaMostrada = true;
-    }
-  }
 }
 ```
-
-Siempre revisa el botón con leerBoton().
-
-Si está midiendo y pasaron 300 ms:
-
-Lee el potenciómetro (analogRead)
-
-Convierte el valor a voltaje y a conductividad
-
-Muestra en pantalla y por serial
-
-
-Si está pausado, muestra un mensaje de pausa una sola vez.
-
-
+- Verifica constantemente el estado del botón.  
+- Si el sistema está activo:  
+  - Lee los tres sensores.  
+  - Convierte ADC → voltaje → magnitud física.  
+  - Aplica compensaciones térmicas y químicas.  
+  - Calcula la salinidad.  
+  - Muestra los resultados en pantalla y por puerto serie.
 
 ---
 
-🔘 6. leerBoton()
+## 🌡️ 6. Conversión y compensación de sensores
+
+### Temperatura (LM35)
+
+```cpp
+temperatura = voltTemp * 100.0;
+```
+
+### Conductividad compensada por temperatura
+
+```cpp
+condTempComp = conductividad / (1 + ALFA * (temperatura - TEMP_REF));
+```
+
+### Corrección por pH
+
+```cpp
+factorPH = exp(K_PH * abs(pH - 7.0));
+condFinal = condTempComp * factorPH;
+```
+
+Esto permite una aproximación más realista al comportamiento de soluciones biológicas.
+
+---
+
+## 🔘 7. leerBoton() – control con antirrebote
 
 ```cpp
 void leerBoton() {
-  static unsigned long lastDebounceTime = 0;
-  static const unsigned long debounceDelay = 50;
-
-  bool estadoBoton = digitalRead(buttonPin) == LOW;
-
-  if (estadoBoton && !botonPresionado && (millis() - lastDebounceTime > debounceDelay)) {
-    botonPresionado = true;
-    medirActivo = !medirActivo;
-    Serial.println(medirActivo ? "MIDIENDO" : "PAUSADO");
-    lcd.clear();
-    lastDebounceTime = millis();
-  }
-
-  if (!estadoBoton && botonPresionado) {
-    botonPresionado = false;
-    lastDebounceTime = millis();
-  }
+  ...
+  medirActivo = !medirActivo;
+  lcd.clear();
 }
 ```
-
-Es el manejo del botón con antirrebote
-
-Este bloque se asegura de que el botón no cause errores si rebota (señales falsas cuando lo apretás):
-
-Detecta si el botón cambió de estado.
-
-Cambia el modo medirActivo a true o false.
-
-Borra la pantalla y actualiza mensajes según eso.
-
-
+Implementa antirrebote por tiempo.  
+Alterna entre medición activa y pausa sin lecturas erróneas.
 
 ---
 
-📺 7. mostrarLectura() (básicamente lo que se ve en pantalla)
+## 📺 8. mostrarLectura()
 
 ```cpp
-void mostrarLectura(int adc, float voltaje, float cond) {
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("V:"); lcd.print(voltaje, 1);
-  lcd.print(" C:"); lcd.print(cond, 1);
-  lcd.setCursor(0, 1);
-  lcd.print("ADC:"); lcd.print(adc);
+void mostrarLectura(float cond, float sal, float temp, float ph) {
+  lcd.setCursor(0,0);
+  lcd.print("C:");
+  lcd.print(cond,1);
+  lcd.print(" T:");
+  lcd.print(temp,0);
+
+  lcd.setCursor(0,1);
+  lcd.print("S:");
+  lcd.print(sal,1);
+  lcd.print(" pH:");
+  lcd.print(ph,1);
 }
 ```
+En la pantalla se visualiza:  
+- Conductividad compensada (mS/cm)  
+- Temperatura (°C)  
+- Salinidad estimada (g/L)  
+- pH aproximado
 
-Muestra en pantalla:
-
-El voltaje.
-
-La conductividad.
-
-El valor ADC (de 0 a 1023).
 
 
 
@@ -339,31 +383,77 @@ El valor ADC (de 0 a 1023).
 
 ---
 
-## 🦋 Progreso Agosto 2025: Medición con cálculo de salinidad y soporte OLED/LCD (rama `VersionAgosto2025`)
+ ## 🦋 Progreso Agosto 2025: Medición avanzada con cálculo de salinidad, compensaciones y soporte OLED/LCD  
+**Rama:** `VersionAgosto2025`
 
-Esta rama contiene mejoras y el progreso correspondiente al mes de Agosto que incluyen:
+Esta rama refleja el avance técnico correspondiente a **Agosto 2025**, incorporando una arquitectura más cercana a un instrumento de medición real, con múltiples sensores, compensaciones físicas y mayor flexibilidad de visualización.
 
-- Soporte dual de pantallas OLED SSD1306 y LCD 16x2 I2C, seleccionable en el código.
-- Cálculo y visualización de salinidad estimada en gramos por litro (g/L).
-- Implementación de tres fórmulas configurables para convertir conductividad a salinidad:
-  - Lineal
-  - Cuadrática
-  - Cúbica  
-- Visualización extendida en pantalla (voltaje, conductividad, salinidad y ADC).
-- Parámetros calibrables (coeficientes de fórmula y rango máximo de conductividad).
-- Simulación y validación en plataformas Wokwi y Tinkercad con potenciómetro.
-- Gestión mejorada del botón con antirrebote para evitar lecturas erráticas.
-- Código modular preparado para futuras integraciones con fórmulas de calibración profesional y nuevos sensores.
-- Envío por puerto serial de todos los parámetros: ADC, voltaje, conductividad y salinidad.
+### ✨ Mejoras incorporadas
 
-### Ejemplo de visualización en pantalla LCD o OLED:
+- **Soporte dual de pantallas**:
+  - OLED SSD1306 (I2C)
+  - LCD 16x2 I2C  
+  Seleccionables directamente desde el código según el hardware disponible.
+
+- **Medición multiparamétrica**:
+  - Conductividad eléctrica (sensor analógico / potenciómetro)
+  - Temperatura mediante **LM35**
+  - pH mediante módulo analógico o potenciómetro de simulación
+
+- **Cálculo de salinidad estimada (g/L)** a partir de la conductividad **compensada**:
+  - Compensación térmica respecto a 25 °C
+  - Factor correctivo por desviación de pH respecto a pH neutro (7.0)
+
+- **Implementación de tres modelos matemáticos configurables** para la conversión de conductividad a salinidad:
+  - Lineal  
+  - Cuadrático  
+  - Cúbico  
+
+- **Visualización extendida en pantalla**:
+  - Conductividad compensada (mS/cm)
+  - Salinidad estimada (g/L)
+  - Temperatura (°C)
+  - pH aproximado
+
+- **Parámetros totalmente calibrables**:
+  - Coeficientes de las fórmulas matemáticas
+  - Rango máximo de conductividad
+  - Coeficiente térmico
+  - Factor de corrección por pH
+
+- **Gestión robusta del botón**:
+  - Antirrebote por software
+  - Alternancia entre modo medición y pausa sin lecturas erráticas
+
+- **Salida completa por puerto serie**, incluyendo:
+  - ADC crudo
+  - Temperatura
+  - pH
+  - Conductividad compensada
+  - Salinidad estimada
+
+- **Simulación y validación**:
+  - Probado en **Wokwi** y **Tinkercad**
+  - Uso de potenciómetros para simular sensores reales
+
+- **Código modular y documentado**, preparado para:
+  - Integrar fórmulas clínicas reales
+  - Añadir nuevos sensores
+  - Migrar a hardware profesional
+
+---
+
+### 📟 Ejemplo de visualización en pantalla (LCD u OLED)
+
 
 ```
-V:2.3 C:24.5
-S:5.6g/L ADC:512
+C:24.5 T:26
+ S:5.6 pH:7.2
 ```
 
-### Selección de fórmula en el código:
+---
+
+### 🌟 Selección de modelo matemático en el código
 
 ```cpp
 int tipoFormula = 3; // 1=lineal, 2=cuadrática, 3=cúbica
@@ -373,27 +463,39 @@ if (tipoFormula == 1) {
   salinidad = a1 * conductividad + b1;
 } else if (tipoFormula == 2) {
   salinidad = a2 * pow(conductividad, 2) + b2 * conductividad + c2;
-} else if (tipoFormula == 3) {
-  salinidad = a3 * pow(conductividad, 3) + b3 * pow(conductividad, 2) + c3 * conductividad + d3;
+} else {
+  salinidad = a3 * pow(conductividad, 3)
+            + b3 * pow(conductividad, 2)
+            + c3 * conductividad + d3;
 }
 ```
 
 ---
 
-## Estado actual
+## 🧪Estado actual
 
-- Rama `main`: funcional para medición básica con LCD 16x2 y potenciómetro.
-- Rama `VersionAgosto2025`: A la espera de la revisión de un profesional bioquímico o profesional de la química. Incluye cálculo y visualización de salinidad, soporte OLED, fórmulas configurables y simulación completa.
-- Validado en simuladores Wokwi y Tinkercad.
-- Código documentado y modular para facilitar calibración y expansión.
+### Rama `main`
+- Medición básica de conductividad  
+- LCD 16x2  
+- Potenciómetro utilizado como sensor  
+- Sin compensaciones físicas  
 
+### Rama `VersionAgosto2025`
+- Medición multiparamétrica: conductividad, temperatura y pH  
+- Compensaciones físicas implementadas  
+- Cálculo y visualización de salinidad  
+- Soporte para OLED y LCD  
+- Código listo para calibración profesional  
+- Pendiente de revisión por profesional bioquímico o químico  
+
+### Estado de Validación
+- Funcionamiento correcto en Wokwi y Tinkercad  
+- Arquitectura estable y extensible  
 ---
 
 ##  🚀 Posibles mejoras futuras
 
-- Incorporar la fórmula química o bioquímica para convertir conductividad a salinidad real.  
-- Alertas led
-
+- Añadir alertas visuales (LED) según rangos críticos.
 ---
 
 ## 📚 Documentación
@@ -519,91 +621,4 @@ Creo que ningún logro es verdaderamente individual. Todo lo que soy, lo que hag
 
 A mis padres, gracias por enseñarme el valor de ayudar, aún cuando no me tocaba, cuando no me toca, aún cuando el mundo mira para otro lado. Por ese ejemplo amoroso y firme que me dieron toda la vida: el de hacer hacer lo correcto, el de hacer las cosas con amor, con honestidad y con compromiso. Ustedes me mostraron lo que es tener un gran corazón, y si hoy estoy acá, es porque ese corazón me late desde ustedes y ese corazón, me lo dieron ustedes.
 
-A mis hermanas, con las que tengo mil desacuerdos, diferencias, discusiones y formas opuestas de ver la vida… pero que, en el fondo, sé que me quieren con el alma. Gracias por ese orgullo que sienten por mí, aunque no siempre lo digan. Yo también las quiero y agradezco ser su hermanita.
-
-A mis cuñados, que probablemente no entiendan ni la mitad de lo que estoy haciendo (y está bien jaja) pero que lo celebran igual, que se alegran conmigo y me hacen sentir que vale la pena. Gracias por ese amor!
-
-A mis sobrinos, mis mellis bebés, mis rayitos de sol. Ustedes que no saben de discapacidad. Ustedes ven a su tía piola, la que les cumple los caprichos, la que les da su tiempo y amor. Gracias por quererme así, por hacerme sentir todo lo lindo que me hacen sentir, por mirarme con esos ojos que no discriminan ni burlan. Gracias peques, en serio.
-
-A Marisol & Marcela, también les agradezco. Porque si hay algo que me salva cada día, son los gestos que no se compran: los abrazos que se dan con solo estar, las palabras que calman en medio de un caos, el cariño constante que ustedes me regalan solo porque me aman.
-A veces la vida da ciertas cosas en los lugares que no esperábamos, las conocí de causalidad, y las encontré a ustedes. No son mis mamás biológicas, pero muchas veces me cuidan, me entienden y me abrigan el alma como solo una mamá lo haría. Y
-eso vale oro.
-Un rincón de paz en mi tormenta. Con ternura. Siempre supieron cuándo hablar, cuándo callar, cuándo solo estar. Son soles en mis días nublados, con ese amor que sostiene y abraza. Tengo esa confianza de hogar. Son empuje, risa y mis incondicionales. Con ustedes siento que puedo ser yo sin esconderme, reírme con nuestras anécdotas, nuestras locuras y ocurrencias, también ser yo sin suavizar lo que duele ni disimular lo que arde. No saben cuánto valoro eso, aunque no se los diga. Me dan lugar, me dan nombre, y me hacen sentir cuidada. Son ese tipo de amor que no necesita títulos porque se demuestra en lo cotidiano, en cada gesto, en cada "yo estoy".
-Gracias por estar, por quererme como soy, por no rendirse cuando ni yo sabía cómo seguir. Gracias por enseñarme, sin decirlo, que el amor real es el que elige, el que acompaña.
-Las amo con el alma entera. Y si alguna vez se preguntan qué significan para mí, espero que siempre lo sepan: son mi calma, mi ternura, mi fuerza... mis mamás elegidas, las mamás que me eligieron.
-Con todo el amor que tengo, gracias💕
-
-A mis amigas, Fi, Luji, Rosita, María, Esme, Luli, Luisi & Juli: las de siempre, las que no se van. Gracias por escucharme, por bancarme, por emocionarse conmigo, por reír, por llorar conmigo, por estar, por todo y por celebrar cada paso que doy. Gracias por amar mi corazón, mi personalidad, mi alegría y también quedarse cuando me caigo, estar para levantarme. Son hogar chicas💖.
-
-A mis dos Fernandas, tan distintas, tan iguales en la forma hermosa en que me quieren. Gracias por ser espejo de todo lo que sí soy, por recordarme que valgo, que brillo, que ayudo, que importo. Gracias por su cariño incondicional, por su apoyo constante y por estar ahí siempre, atentas a cada logro, a cada lágrima, a cada sueño, las amo.
-
-A mis profesores, especialmente a Celso, Laura & Claudita, verdaderos educadorares, formadores de mi alma y lo que soy no solo como profesional, también como persona. Gracias por despertar en mí la pasión por aprender, por enseñarme que el conocimiento es poder pero también es sensibilidad, es humanidad, es ayudar al otro, es lo que hacemos, es aportar, es ser buena gente. Por haberme siempre apoyado, por haber creído en mí antes que yo misma, por empujarme con amor a soñar en grande, a siempre más y más. Parte de lo que soy, parte de este proyecto, se los debo✨.
-
-Y a la gente de a pie, a todos los que, al enterarse de este proyecto, se pusieron felices por mí aunque no supieran tanto, aunque no supieran los detalles. Gracias por esa buena onda sincera que me impulsó a seguir. Gracias por emocionarse, por darme palabras de apoyo, por todo ese power.
-
-Este proyecto no lleva solo mi nombre. Lleva los abrazos, los gestos, los apoyos, los consejos, los mates, las lágrimas compartidas, las risas, las ganas de verme bien y logrando todo.
-Este logro es de todos.
-Gracias totales gente, de todo corazón.
-
- .-Poli💖
-
----
-
-## 🙌 Créditos
-
-Quiero expresar mi profundo agradecimiento a todas las personas que acompañaron este proyecto con su tiempo, apoyo y confianza.
-
-**👨‍🏫 Profe Sergio Daniel Conde**
-
-Este proyecto no estaría completo sin reconocer y agradecer profundamente al  
-**Profesor Dr. Sergio Daniel Conde**.  
-
-El profe Sergio Conde es, sin exagerar, uno de los mejores docentes que un estudiante puede tener.  
-No solo por su inmenso recorrido académico (con múltiples distinciones, reconocimientos y premios que lo destacan a nivel nacional e internacional como referente en su área), sino porque combina esa brillantez con algo aún más valioso: **su calidad humana**.  
-
-Es un profesor que **cree en sus alumnos**, que les dedica tiempo real, que acompaña, escucha y da visibilidad a sus ideas. Tiene esa rara capacidad de hacer sentir que cada uno importa, que cada proyecto, incluso los más pequeños, valen la pena. Logra lo que pocos: unir lo académico con lo humano, la ciencia con el corazón.  
-
-En su carrera ha recibido numerosos **premios y menciones** por su labor, tanto en investigación como en docencia, pero quienes tuvimos la suerte de estar en sus clases sabemos que su mayor premio es la huella que deja en cada estudiante.  
-Es un **genio en lo profesional**, pero también alguien profundamente **amoroso, cercano y generoso**.  
-
-Por todo esto, quiero agradecerte de corazón, profe, por el apoyo, por darle visibilidad a este proyecto, por creer en mí incluso en los momentos en que yo misma dudaba. Gracias por demostrar con tu ejemplo que la enseñanza no es solo transmitir conocimiento, sino también inspirar, motivar y tender la mano.  
-
-Este proyecto también lleva tu huella, porque detrás de cada idea que se concreta hay un eco de tu empuje, tu confianza y tu fe en que los estudiantes podemos lograr grandes cosas.  
-
-**Con admiración, gratitud y cariño inmenso: gracias, profe.**
----
-
-##  📄 Licencia
-
-Este proyecto fue desarrollado por Paulina Juich y registrado en la DNDA (Argentina) bajo el número de expediente EX-2025-78014687- el 18 de Julio de 2025.
-
-Todo el contenido de este repositorio (código fuente, diseño electrónico, documentación) se encuentra protegido por derechos de autor.
-
-⚠️ El incumplimiento de estas condiciones podrá derivar en acciones legales conforme a la Ley 11.723 de Propiedad Intelectual.
-
-© 2025 Paulina Juich. Todos los derechos reservados.
-
-- Uso personal, académico o educativo sin fines de lucro permitido con atribución.  
-- Uso comercial o distribución requiere licencia o autorización expresa.  
-
-Contacto para licencias: [paulinajuich4@gmail.com](mailto:paulinajuich4@gmail.com)
-
----
-
-## ✍️ Autora
-
-Paulina Juich
-
-Técnica Analista Universitaria en Sistemas, Tech Support IT, Programadora de PC de la UTN, autora y desarrolladora de este dispositivo, su diseño técnico, lógico y funcional. 
- 
-Julio 2025
-
----
-
-### 🙌 Nota final
-
-Este proyecto es un prototipo funcional con base sólida, creado con esfuerzo, amor, pasión y cuidado, que espera convertirse en una herramienta útil en monitoreo de líquidos biológicos, aplicaciones en química, biología, monitoreo ambiental y salud.
-
-> 💓Este dispositivo no solo mide, también ama y cuida. Gracias por acompañarme.💓
-> 
----
+A mis hermanas, con las que tengo mil desacuerdos, diferencias, discusiones y formas opuestas de ver la vida… pero que, en el fondo, sé que me quieren con el alma. Gracias por ese orgullo que sienten por mí, aunque no siempre lo d
