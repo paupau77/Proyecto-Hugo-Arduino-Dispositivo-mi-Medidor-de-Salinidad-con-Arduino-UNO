@@ -1,4 +1,4 @@
-# Medidor de Salinidad Básico con Arduino UNO
+# Proyecto Hugo - Medidor de Salinidad Básico con Arduino UNO
 
 
 ![Arduino](https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=arduino&logoColor=white)
