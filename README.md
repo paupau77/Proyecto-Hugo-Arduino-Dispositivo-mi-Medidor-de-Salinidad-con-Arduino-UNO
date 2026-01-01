@@ -15,7 +15,7 @@
 > Dispositivo experimental de medición de salinidad con pantalla LCD 16x2 I2C, basado en Arduino, utilizando la conductividad eléctrica como variable primaria y aplicando modelos matemáticos para estimar salinidad, incluye compensación por temperatura y pH.
 El sistema está diseñado con fines educativos, experimentales y de prototipado, siguiendo una lógica similar a la utilizada en equipos reales de instrumentación analítica.
 NO constituye un dispositivo médico ni realiza diagnósticos clínicos.
-Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, química, biología, etc
+Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, química, biología, etc.
 
 ---
 
