@@ -698,7 +698,7 @@ Paulina Juich
 
 Técnica Analista Universitaria en Sistemas, Tech Support IT, Programadora de PC de la UTN, autora y desarrolladora de este dispositivo, su diseño técnico, lógico y funcional. 
  
-Julio 2025
+Agosto - Diciembre 2025
 
 ---
 
