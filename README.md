@@ -111,9 +111,9 @@ Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, qu�
 
 ## 📷 Esquema de conexión del circuito
 
-![Esquema de conexión](esquema_conexion.png)
+![Esquema de conexión](esquema_conexion2.png)
 
-*Figura 1: Diagrama de conexión entre Arduino, sensor de conductividad, pantalla y pulsador.*
+*Figura 1: Nuevo diagrama de conexión entre Arduino, sensores, pantalla y pulsador.*
 
 
 ## Evolución del diseño del circuito
