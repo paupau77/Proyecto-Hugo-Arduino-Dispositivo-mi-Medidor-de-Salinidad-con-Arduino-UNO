@@ -6,66 +6,66 @@
 
 <style>
   body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #e6f4ea; /* verde suave */
     margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #ffffff;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     color: #333;
   }
 
-  section {
-    padding: 48px 20 56px;
-  }
-
-  .main-section {
+  .card {
+    max-width: 700px;
     background-color: #fff2f6;
-    border-top: 6px solid #e83e8c;
-  }
-
-  .advanced-section {
-    background-color: #eef7ff;
-    border-top: 6px solid #0d6efd;
-  }
-
-  .content {
-    max-width: 900px;
-    margin: auto;
+    border-left: 6px solid #d63384;
+    border-radius: 16px;
+    padding: 28px 32px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
   }
 
   h1 {
     margin-top: 0;
+    color: #b02a6b;
+    font-size: 1.9rem;
+  }
+
+  p {
+    line-height: 1.6;
+    font-size: 1.05rem;
   }
 
   ul {
-    padding-left: 20px;
+    margin-top: 12px;
+    padding-left: 22px;
+  }
+
+  li {
+    margin-bottom: 8px;
   }
 
   .nota {
     margin-top: 24px;
-    padding: 14px 16px;
-    background-color: #e8fbf6;
-    border-left: 5px solid #20c997;
-    border-radius: 6px;
+    background-color: #e6f7f7;
+    border-left: 6px solid #20c997;
+    border-radius: 12px;
+    padding: 16px 18px;
     font-style: italic;
-  }
-
-  .link {
-    margin-top: 20px;
-    display: inline-block;
-    font-weight: 500;
+    color: #0f5132;
   }
 </style>
-  
-
 </head>
 
 <body>
-
     <h1> PROYECTO HUGO💚 </h1>
-    
-    <<h1>💚 Rama main</h1>
+  <div class="card">
+    <h1> 💚 Rama <strong>main</strong></h1>
 
     <p>
-      Implementación base del proyecto, orientada a la comprensión del proyecto
+      Implementación base del proyecto, orientada a la comprensión educativa
       y a la demostración del principio de medición de conductividad.
     </p>
 
@@ -81,9 +81,9 @@
     </p>
 
     <div class="nota">
-      💖 Ideal como punto de partida didáctico y base para futuras mejoras.
+      💖 Ideal como punto de partida didáctico y base para futuras mejoras. 💖
     </div>
-
+  </div>
 
 <p>
 Tocá acá para ir a la rama Main💚:
@@ -92,6 +92,7 @@ Tocá acá para ir a la rama Main💚:
 GitHub — Proyecto Hugo💚
 </a>
 </p>
+
 
 </body>
 </html>
