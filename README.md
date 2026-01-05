@@ -12,8 +12,8 @@
 ![En Desarrollo](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow?style=for-the-badge)
 
 
-> Dispositivo experimental de medición de salinidad con pantalla LCD 16x2 I2C, basado en Arduino, utilizando la conductividad eléctrica como variable primaria y aplicando modelos matemáticos para estimar salinidad, incluye compensación por temperatura y pH.
-El sistema está diseñado con fines educativos, experimentales y de prototipado, siguiendo una lógica similar a la utilizada en equipos reales de instrumentación analítica.
+> Este proyecto es un **medidor de salinidad experimental basado en Arduino UNO**, orientado a aplicaciones educativas, científicas y de prototipado, siguiendo una lógica similar a la utilizada en equipos reales de instrumentación analítica, con visualización en pantalla LCD 16x2 I2C/OLED, múltiples sensores (conductividad, temperatura, pH), compensaciones físicas y cálculo de salinidad mediante modelos matemáticos seleccionables.  
+Está **documentado con detalle, modular, abierto a mejoras, y hecho con un profundo sentido humano y compromiso social**.
 NO constituye un dispositivo médico ni realiza diagnósticos clínicos.
 Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, química, biología, etc.
 
