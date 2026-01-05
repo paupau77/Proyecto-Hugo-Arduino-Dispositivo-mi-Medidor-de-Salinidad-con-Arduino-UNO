@@ -517,7 +517,7 @@ Decía que me amaba más allá de todo… y yo le creí.
 Y amarlo a él fue un acto $${\color{pink} inmenso }$$, $${\color{pink} real }$$, $${\color{pink} tierno }$$ y $${\color{pink} leal }$$. Lo amé con todo.
 Con mi corazón, con mi cuerpo, con mi alma, con mis ganas de cuidarlo como nadie.
 
-Un día me habló de su abuelo, que tenía un solo riñón. hablando del tema, pensé que él también podría tener uno de sus riñones jodidos, también pensaba que él podría, al igual que su abuelo tener un solo riñón. No quería que nada le pase al amor de mi vida.
+Un día me habló de su abuelo Hugo, que tenía un solo riñón. hablando del tema, pensé que él también podría tener uno de sus riñones jodidos, también pensaba que él podría, al igual que su abuelo tener un solo riñón. No quería que nada le pase al amor de mi vida.
 Y el miedo me apretó el pecho, como si su dolor pudiera ser mío.
 Estaba llena de miedo, pensé que su vida podría estar en juego, que podría morir, quería ayudar, quería mejorar su salud y su calidad de vida, yo me preocupaba, quería cuidarlo.
 No sabía si era cierto, pero igual quise protegerlo.
