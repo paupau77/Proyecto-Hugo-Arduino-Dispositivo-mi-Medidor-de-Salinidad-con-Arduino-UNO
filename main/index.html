@@ -3,53 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <title>Proyecto Hugo💚</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+  :root {
+    --rosa: #ffe3f2;
+    --rosa-strong: #e85d8f;
+    --aqua: #d2f4f5;
+    --aqua-strong: #14b8b6;
+    --turquesa: #0aa3a3;
+    --gris: #465363;
+    --bg: #f7fafc;
+    --borde-rosa: #e85d8f;
+    --borde-aqua: #14b8b6;
+  }
+
   body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background-color: #e6f4ea;
+    background-color: var(--bg);
     margin: 0;
     min-height: 100vh;
-
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-
-    color: #333;
-    padding: 32px 16px;
+    color: var(--gris);
+    padding: 32px 8px;
   }
 
   .titulo {
     font-size: 2.2rem;
-    color: #b02a6b;
+    color: var(--turquesa);
     margin-top: 12px;
     text-align: center;
+    font-weight: 800;
+    letter-spacing: -1px;
   }
 
   .card {
     max-width: 700px;
-    background-color: #fff2f6;
-    border-left: 6px solid #d63384;
-    border-radius: 16px;
+    background-color: var(--rosa);
+    border-left: 6px solid var(--borde-rosa);
+    border-radius: 18px;
     padding: 28px 32px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 16px rgba(232, 93, 143, 0.06);
+    margin-bottom: 2em;
+    margin-top: 1.5em;
   }
 
   .card h1 {
     margin-top: 0;
-    color: #b02a6b;
-    font-size: 1.8rem;
+    color: var(--rosa-strong);
+    font-size: 1.6rem;
+    font-weight: 700;
   }
 
   p {
-    line-height: 1.6;
-    font-size: 1.05rem;
+    line-height: 1.7;
+    font-size: 1.08rem;
+    color: var(--gris);
   }
 
   ul {
     margin-top: 12px;
     padding-left: 22px;
+    color: var(--gris);
   }
 
   li {
@@ -57,38 +73,44 @@
   }
 
   a {
-    color: #e85d8f;
+    color: var(--rosa-strong);
     text-decoration: none;
     font-weight: 500;
+    transition: color .16s;
   }
 
   a:hover {
+    color: var(--aqua-strong);
     text-decoration: underline;
   }
 
   .nota {
     margin-top: 24px;
-    background-color: #e6f7f7;
-    border-left: 6px solid #20c997;
-    border-radius: 12px;
+    background-color: var(--aqua);
+    border-left: 6px solid var(--borde-aqua);
+    border-radius: 14px;
     padding: 16px 18px;
     font-style: italic;
-    color: #0f5132;
+    color: #165353;
+    font-weight: 600;
+    box-shadow: 0 2px 12px 0 rgba(20, 184, 182, 0.06);
   }
 
   .link-rama {
     text-align: center;
     margin-bottom: 16px;
-    font-size: 1rem;
+    font-size: 1.04rem;
   }
 
   .link-rama a {
-    color: #e85d8f;
+    color: var(--rosa-strong);
     text-decoration: none;
     font-weight: 600;
+    transition: color .16s;
   }
 
   .link-rama a:hover {
+    color: var(--aqua-strong);
     text-decoration: underline;
   }
   .tag {
@@ -102,33 +124,44 @@
       font-weight: 700;
       letter-spacing: 0.03em;
     }
-    
+
     .icon {
       font-size: 1.2em;
       vertical-align: middle;
     }
      .footer {
-      background: #13a3a6;
+      background: var(--aqua-strong);
       color: #fff;
       text-align: center;
       padding: 2rem 1rem;
-      font-family: 'Arial', sans-serif;
-      font-size: 2rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 1.3rem;
       line-height: 1.4;
-      margin: 0;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      margin-top: 2.5em;
+      box-shadow: 0 -2px 18px 0 rgba(20, 184, 182, 0.08);
      }
+    @media (max-width: 680px) {
+      .card {
+        padding: 18px 7px;
+      }
+      .footer {
+        font-size: 1rem;
+        padding: 1.5rem 0.5em;
+      }
+    }
 </style>
 </head>
 
 <body>
-
   <!-- TÍTULO -->
   <div class="titulo">
     PROYECTO HUGO💚
   </div>
 
   <!-- CARD CENTRO -->
-  <div class="card" class="tag">
+  <div class="card">
     <h1>💚 Rama <strong>main</strong></h1>
 
     <p>
@@ -147,7 +180,7 @@
       Esta versión prioriza la simplicidad y la comprensión conceptual.
     </p>
 
-    <div class="nota" class="icon">
+    <div class="nota">
       💖 Ideal como punto de partida didáctico y base para futuras mejoras. 💖
     </div>
   </div>
@@ -159,9 +192,9 @@
       GitHub — Proyecto Hugo 💚
     </a>
   </div>
-  <footer>
+  <div class="footer">
     Hecho con 💚 por Paupau77 — 2026<br>
     <span style="font-size:0.95em">Gracias por visitar Proyecto Hugo💚.</span>
-  </footer>
+  </div>
 </body>
 </html>
