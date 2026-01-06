@@ -18,6 +18,17 @@ Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, qu�
 
 ---
 
+## Dedicatoria💚
+
+Este proyecto está dedicado **en memoria de Hugo Passucci**,  
+una de las dos inspiraciones humanas de este proyecto.
+
+Su figura estuvo presente como referencia de valores que atraviesan todo el desarrollo del dispositivo: el cuidado, la voluntad, la búsqueda de ayudar a los demás y el compromiso con lo humano detrás de lo técnico.
+
+Nombrar este proyecto con su nombre es también una forma de reconocer esa inspiración que me ha dado y de darle continuidad a la huella que dejó.
+
+---
+
 ## 📋 Índice de mi Proyecto
 
 
