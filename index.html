@@ -232,14 +232,14 @@ li {
 .font-green { color: var(--aqua-strong);}
 .font-pink { color: var(--rosa-strong);}
 .font-blue { color: var(--turquesa);}
-.email-container {
+  .email-container {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.5rem;
     }
-    .envelope-btn {
-      background: #b6e2d3;
+    .envelope-static {
+      background: #3bb273;
       border: none;
       border-radius: 50%;
       width: 64px;
@@ -248,48 +248,34 @@ li {
       align-items: center;
       justify-content: center;
       box-shadow: 0 2px 8px rgba(59, 178, 115, 0.08);
-      cursor: pointer;
-      transition: background 0.2s;
-      outline: none;
       position: relative;
+      margin-bottom: 0.2rem;
     }
-    .envelope-btn:hover {
-      background: #3bb273;
-    }
-    .envelope-btn svg {
-      transition: transform 0.3s;
+    .envelope-static svg {
       width: 36px;
       height: 36px;
-      stroke: #357e5b;
+      stroke: #fff;
       stroke-width: 2;
       fill: none;
-    }
-    .envelope-btn.open svg {
       transform: rotate(-14deg) scale(1.06);
-      stroke: #fff;
+      transition: none;
     }
     .email-address {
       background: #fff;
       color: #3bb273;
       border-radius: 1rem;
       padding: 0.7rem 1.2rem;
-      margin-top: 0.2rem;
       box-shadow: 0 4px 16px rgba(59, 178, 115, 0.10);
       font-size: 1.1rem;
       font-weight: 600;
-      opacity: 0;
-      transform: translateY(-12px) scale(0.97);
-      pointer-events: none;
-      transition: all 0.35s cubic-bezier(.43,1.7,.67,.93);
       user-select: all;
       border: 1px solid #b6e2d3;
       position: relative;
       z-index: 1;
-    }
-    .email-address.show {
       opacity: 1;
+      transform: none;
       pointer-events: auto;
-      transform: translateY(0) scale(1);
+      transition: none;
     }
   </style>
 </head>
@@ -560,36 +546,17 @@ li {
       <p style="color:#64748b;font-size:0.97em;">Agosto - Diciembre 2025</p>
     </div>
     <div class="email-container">
-    <button class="envelope-btn" id="envelopeBtn" aria-label="Mostrar correo">
+    <div class="envelope-static" aria-hidden="true">
       <svg viewBox="0 0 32 32">
         <rect x="4" y="8" width="24" height="16" rx="3" />
         <polyline points="4,10 16,20 28,10" />
         <polyline points="4,24 16,14 28,24" />
       </svg>
-    </button>
-    <div class="email-address" id="emailAddress">
-     Contacto: paulinajuich4@gmail.com
+    </div>
+    <div class="email-address">
+     Contacto: Paulinajuich4@gmail.com
     </div>
   </div>
-  <script>
-    const btn = document.getElementById('envelopeBtn');
-    const email = document.getElementById('emailAddress');
-    btn.addEventListener('click', function() {
-      const isOpen = btn.classList.toggle('open');
-      if(isOpen) {
-        email.classList.add('show');
-      } else {
-        email.classList.remove('show');
-      }
-    });
-    // Opcional: cerrar al hacer click fuera
-    document.addEventListener('click', function(e) {
-      if (!btn.contains(e.target) && !email.contains(e.target)) {
-        btn.classList.remove('open');
-        email.classList.remove('show');
-      }
-    });
-  </script>
     <div class="author-card" style="display:flex;flex-direction:column;align-items:center;">
       <div style="display:flex;align-items:center;gap:.5em;margin-bottom:0.7em;">
         <!-- Sun icon -->
