@@ -1,4 +1,4 @@
-## 🌐 Web Oficial de Proyecto Hugo💚
+## 🌐Web Oficial de Proyecto Hugo💚
 
 La web oficial de Proyecto Hugo está disponible en:
 
