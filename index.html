@@ -373,6 +373,27 @@ body {
   margin-top: 2.5em;
 }
 
+/* Estilo para el logo circular con corazón */
+.logo-heart-circle {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #2dd4bf 0%, #3b82f6 100%); /* Degradado de la imagen */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+/* Alineación del logo con el texto */
+.menu-title {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Espacio entre el círculo y el nombre */
+}
+
+
 /* ===============================
    RESPONSIVE NAVBAR – UNA SOLA LÍNEA
    =============================== */
@@ -461,9 +482,15 @@ body {
   <nav>
     <div class="navbar-content">
       <div class="menu-title">
-        <!-- Quité el icono de las tres rayitas, al finn! -->
-        <span class="font-bold font-green" style="font-size:1.4em;">Proyecto Hugo</span>
-      </div>
+  <div class="logo-heart-circle">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </svg>
+  </div>
+  
+  <span class="font-bold font-green" style="font-size:1.4em;">Proyecto Hugo</span>
+</div>
+
       <div class="navbar-links">
         <button class="active" data-section="inicio">
           <!-- Home icon (Remix Icon: ri-home-heart-line) -->
