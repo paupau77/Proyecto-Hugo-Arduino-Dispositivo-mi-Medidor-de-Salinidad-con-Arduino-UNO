@@ -377,13 +377,16 @@ body {
 .logo-heart-circle {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #2dd4bf 0%, #3b82f6 100%); /* Degradado de la imagen */
+  
+  /* Antes era azul al final (#3b82f6), ahora es verde esmeralda (#10b981) */
+  background: linear-gradient(135deg, #2dd4bf 0%, #10b981 100%); 
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+  /* Ajustamos también un poco la sombra para que sea verdosa */
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
 }
 
 /* Alineación del logo con el texto */
