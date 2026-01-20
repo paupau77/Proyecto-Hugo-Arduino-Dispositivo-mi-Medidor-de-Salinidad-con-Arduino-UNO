@@ -93,24 +93,26 @@
     font-weight: 600;
     box-shadow: 0 2px 12px 0 rgba(232, 93, 143, 0.06);
   }
-
-  .link-rama {
-    text-align: center;
-    margin-bottom: 16px;
-    font-size: 1.04rem;
-  }
-
-  .link-rama a {
-    color: var(--rosa-strong);
+ /* Estilos de Botones (Links) – Rosa Pastel */
+a.btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #f9a8d4 0%, #f472b6 100%);
+    color: #ffffff;
+    padding: 10px 20px;
+    margin: 5px;
     text-decoration: none;
+    border-radius: 8px;
     font-weight: 600;
-    transition: color .16s;
-  }
+    box-shadow: 0 4px 6px rgba(244, 114, 182, 0.35);
+    transition: all 0.3s ease;
+    border: 1px solid #fbcfe8;
+}
 
-  .link-rama a:hover {
-    color: var(--aqua-strong);
-    text-decoration: underline;
-  }
+a.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(244, 114, 182, 0.45);
+    background: linear-gradient(135deg, #fbcfe8 0%, #f9a8d4 100%);
+}
   .tag {
       display: inline-block;
       background: #e8fbe7;
@@ -252,11 +254,15 @@
   </div>
 </div>
   <!-- LINK ABAJO -->
-  <div class="link-rama">
-    Tocá acá para ir a la rama VersionAgosto2025 💚<br>
-    <a href="https://github.com/paupau77/Proyecto-Hugo-Arduino-Dispositivo-mi-Medidor-de-Salinidad-con-Arduino-UNO/tree/VersionAgosto2025">
-      GitHub — Proyecto Hugo 💚
-    </a>
+   <div style="text-align:center; margin-top: 1.5em;">
+  Tocá acá para ir a la rama VersionAgosto2025 💚
+  <a
+    class="btn"
+    href="https://github.com/paupau77/Proyecto-Hugo-Arduino-Dispositivo-mi-Medidor-de-Salinidad-con-Arduino-UNO/tree/VersionAgosto2025"
+  >
+    GitHub — Proyecto Hugo 💚
+  </a>
+</div>
    <div class="footer">
     Hecho con 💚 por @Paupau77
     <br>
