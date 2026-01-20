@@ -395,6 +395,53 @@ body {
   align-items: center;
   gap: 12px; /* Espacio entre el círculo y el nombre */
 }
+/* --- EFECTO DE CORAZONES VOLADORES --- */
+#hearts-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.floating-heart {
+  position: absolute;
+  bottom: -50px;
+  color: rgba(244, 114, 182, 0.4); /* Rosa suave con transparencia */
+  fill: currentColor;
+  user-select: none;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(0.5); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.4; }
+  100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+}
+
+/* --- ESTILO PARA LAS CAJAS DE ICONOS --- */
+.icon-box {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+/* Colores de fondo de tus fotos */
+.bg-verde    { background-color: #e6f7f1; }
+.bg-azul     { background-color: #eef2ff; }
+.bg-naranja  { background-color: #fff7ed; }
+.bg-violeta  { background-color: #f5f3ff; }
+.bg-amarillo { background-color: #fefce8; }
+.bg-rosa     { background-color: #fff1f2; }
 
 
 /* ===============================
@@ -445,6 +492,8 @@ body {
   </style>
 </head>
 <body>
+<div id="hearts-container"></div>
+
 <!-- Fondo electrónico / circuito -->
 <div class="circuit-background">
   <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" class="circuit-svg">
@@ -801,5 +850,44 @@ body {
       });
     });
   </script>
+
+<script>
+function createHeart() {
+  const container = document.getElementById('hearts-container');
+  if(!container) return;
+
+  const heart = document.createElement('div');
+  heart.className = 'floating-heart';
+  
+  // Usamos el diseño de corazón que te gustó
+  heart.innerHTML = `
+    <svg width="20" height="20" viewBox="0 0 24 24" stroke="none">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </svg>
+  `;
+
+  // Configuración aleatoria
+  const size = Math.random() * 20 + 12; 
+  const left = Math.random() * 100; 
+  const duration = Math.random() * 10 + 15; 
+  const delay = Math.random() * 15;
+
+  heart.style.left = left + 'vw';
+  heart.style.width = size + 'px';
+  heart.style.height = size + 'px';
+  heart.style.animationDuration = duration + 's';
+  heart.style.animationDelay = delay + 's';
+
+  container.appendChild(heart);
+
+  // Se borra solo para que la web no pese
+  setTimeout(() => heart.remove(), (duration + delay) * 1000);
+}
+
+// Lanza los primeros 15 y luego uno cada 3 segundos
+for (let i = 0; i < 15; i++) createHeart();
+setInterval(createHeart, 3000);
+</script>
+
 </body>
 </html>
