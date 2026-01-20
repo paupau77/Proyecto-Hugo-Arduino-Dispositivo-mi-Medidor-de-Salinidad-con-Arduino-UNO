@@ -181,6 +181,37 @@
     box-shadow: 0 -2px 18px 0 rgba(20, 184, 182, 0.08);
   }
 
+/* --- EFECTO DE CORAZONES VOLADORES --- */
+#hearts-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  /* El z-index debe ser mayor al del fondo pero menor al de las tarjetas */
+  z-index: 9999; 
+  overflow: hidden;
+  display: block !important;
+}
+
+.floating-heart {
+  position: absolute;
+  bottom: -50px;
+  /* Cambiamos a un rosa más fuerte para probar si se ve */
+  color: #ffb6c1; 
+  opacity: 0.6;
+  fill: currentColor;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(0.5); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.4; }
+  100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+}
+
   @media (max-width: 680px) {
     .card {
       padding: 18px 15px;
@@ -197,6 +228,8 @@
 </head>
 
 <body>
+<div id="hearts-container"></div>
+
 <div class="circuit-background">
   <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" class="circuit-svg">
     <defs>
@@ -260,5 +293,43 @@
     <span style="font-size:0.95em">Gracias por visitar Proyecto Hugo💚.</span>
   </div>
 </div>
+
+<script>
+console.log("Script de corazones cargado"); // Esto te dirá en la consola si el código corre
+
+function createHeart() {
+  const container = document.getElementById('hearts-container');
+  
+  if (!container) {
+    console.error("No se encontró el contenedor #hearts-container");
+    return;
+  }
+
+  const heart = document.createElement('div');
+  heart.className = 'floating-heart';
+  heart.innerHTML = `
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </svg>`;
+
+  const size = Math.random() * 20 + 15;
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.width = size + 'px';
+  heart.style.animationDuration = (Math.random() * 5 + 10) + 's';
+  
+  container.appendChild(heart);
+  
+  setTimeout(() => heart.remove(), 15000);
+}
+
+// Intentar crear corazones apenas cargue la página
+window.onload = () => {
+  for (let i = 0; i < 10; i++) {
+    setTimeout(createHeart, i * 300);
+  }
+  setInterval(createHeart, 2000);
+};
+</script>
+
 </body>
 </html>
