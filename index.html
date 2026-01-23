@@ -995,13 +995,20 @@ window.onload = () => {
             Sensores
         </span>
         <span style="display: flex; align-items: center; gap: 4px;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 3c-4.5 0-8 3.5-8 8s2 6 4 8 3 2 4 2 2-1 4-2 4-3.5 4-8-3.5-8-8-8z"/>
-      <path d="M12 11c-1 0-2 1-2 2s1 2 2 2" opacity="0.5"/>
+    <svg width="14" height="14" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="kidneyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#f87171;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#991b1b;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <path d="M70,165 Q60,200 65,280" stroke="#f87171" stroke-width="15" fill="none" stroke-linecap="round" />
+      <path d="M100,20 C150,20 180,60 180,110 C180,180 150,260 100,280 C60,295 20,250 30,190 C35,160 60,150 60,150 C60,150 35,140 30,110 C20,50 60,20 100,20 Z" 
+            fill="url(#kidneyGradient)" stroke="#7f1d1d" stroke-width="4" />
+      <path d="M60,150 C65,145 75,130 90,140 C100,148 100,160 90,168 C75,175 65,160 60,150 Z" fill="white" opacity="0.5" />
     </svg>
     Salud renal
 </span>
-
       </div>
     </div>
 
