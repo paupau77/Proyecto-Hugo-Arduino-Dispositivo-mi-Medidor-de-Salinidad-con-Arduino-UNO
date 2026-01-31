@@ -135,6 +135,56 @@ if (mode == 0) {
 
 ---
 
+## 🧠 Funcionamiento del código 
+
+💻 1. Librerías y creación del objeto LCD
+
+```cpp
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(7, 9, 8, 10, 11, 12);
+```
+
+Se utiliza la librería estándar para manejar el LCD. A diferencia de versiones I2C, aquí se definen los pines digitales directamente: RS, Enable y el bus de datos de 4 bits (D4-D7).
+
+---
+
+👾 2. Variables de Estado 
+
+```cpp
+bool mode = 0; // 0 = Medición, 1 = Calibración
+float voltage = 0.0;
+float potassium = 0.0;
+```
+
+El código utiliza una variable booleana mode para alternar lo que el usuario ve en pantalla, permitiendo una herramienta versátil tanto para el paciente como para el técnico.
+
+---
+
+⏱️ 3. setup() y Bienvenida
+
+```cpp
+void setup() {
+  pinMode(buttonPin, INPUT_PULLUP);
+  lcd.begin(16, 2);
+  lcd.print("Medidor K+");
+  lcd.setCursor(0, 1);
+  lcd.print("Proyecto Hugo");
+  delay(2000);
+}
+```
+Inicializa el LCD y el botón. Muestra un mensaje inicial en memoria de Hugo para confirmar el arranque del sistema.
+
+---
+
+🔁 4. loop() – El Núcleo
+Lectura del Botón: Detecta el flanco de bajada (cuando presionas) para cambiar el valor de mode.
+Procesamiento Analógico: Toma la muestra de A0, la escala a 5V y aplica la ecuación lineal de potasio.
+Visualización Condicional:
+Si mode == 0: Llama a mostrarPotasio(), enfocándose en el valor final en mmol/L.
+Si mode == 1: Llama a mostrarCalibracion(), exponiendo el valor ADC y el voltaje para ajustes de precisión.
+
+---
+
 ## 📚 Documentación (en progreso, estoy trabajando en eso)
 Para más detalles sobre el diseño, verificación y funcionamiento del dispositivo, consulta los siguientes archivos:
 
@@ -144,47 +194,38 @@ Para más detalles sobre el diseño, verificación y funcionamiento del disposit
 
 ---
 
-## 💖 Mi proyecto fue hecho desde el corazón
-Este proyecto no nació en un laboratorio. Nació en mi $${\color{pink} corazón }$$.
-
-No surgió de la técnica ni de la lógica, sino de un sentimiento $${\color{pink} profundo }$$, de esos que te atraviesan el alma y te mueven a crear desde el corazón.
-Pensé este dispositivo para quien fue el amor de mi vida, Agus Nicolás.
-Para ese chico que, un día, me hizo sentir que el amor no sabe de discapacidad, que alguien podría amarme a mí, aun con mis piernas lisiadas, amarme por mi corazón y mi alma.
-Decía que me amaba más allá de todo… y yo le creí.
-Y amarlo a él fue un acto $${\color{pink} inmenso }$$, $${\color{pink} real }$$, $${\color{pink} tierno }$$ y $${\color{pink} leal }$$. Lo amé con todo.
-Con mi corazón, con mi cuerpo, con mi alma, con mis ganas de cuidarlo como nadie.
-
-Un día me habló de su abuelo Hugo, que tenía un solo riñón. hablando del tema, pensé que él también podría tener uno de sus riñones jodidos, también pensaba que él podría, al igual que su abuelo tener un solo riñón. No quería que nada le pase al amor de mi vida.
-Y el miedo me apretó el pecho, como si su dolor pudiera ser mío.
-Estaba llena de miedo, pensé que su vida podría estar en juego, que podría morir, quería ayudar, quería mejorar su salud y su calidad de vida, yo me preocupaba, quería cuidarlo.
-No sabía si era cierto, pero igual quise protegerlo.
-Su historia, su cuerpo, su herencia, todo lo que lo formaba, me importaba, lo amaba, hasta el día de hoy aún lo amo y en mi corazón él tiene su espacio. Lo miré como quien ama la vida en otro cuerpo.
-Y entonces, algo nació:
-la necesidad de ayudar, de crear algo que lo pudiera cuidar.
-
-Así fue como, con cables, ideas, y amor, creé este pequeño dispositivo.
-Solo un dispositivo, un código, solo un circuito, sí. Pero también un acto de amor.
-Un intento de cuidar, de acompañar, de ayudar.
-Por él. Por su abuelo. Por quienes lo necesiten.
-
-Porque a veces el amor también se expresa con circuitos, con sensores, con pantallas, con datos…
-Y con un alma que solo quiere hacer el bien.
-
-No sé si alguna vez entenderá que este proyecto nació por y para él.
-Pero yo sí lo sé.
-Y eso, para mí, es $${\color{pink} sagrado }$$.
-Con esto, mi amor queda por siempre plasmado.
-Y además estoy feliz también, de a la gente, poder haber ayudado.💖
-
-
+## 💖 3.1. Por qué medir Potasio?
+Este proyecto siempre fue mucho más que electrónica.
+Nunca fue solo medir valores, mostrar números o programar un microcontrolador.
+Desde el primer día, fue una forma de cuidar.
+Cuando pensé este dispositivo, lo hice desde el amor y desde el miedo. Desde ese impulso profundo que aparece cuando alguien que amás podría estar en riesgo, y vos no querés quedarte de brazos cruzados. El potasio, como electrolito esencial, apareció en este camino de la misma manera que apareció todo lo demás: como una preocupación real, concreta, humana.
+Hugo, tenía problemas renales y dificultades para regular su potasio. Y cuando alguien tiene un riñón solo riñón y que no funciona como debería, el potasio deja de ser una palabra técnica y volverse algo vital, serio, delicado, incluso peligroso. Un valor alto o bajo puede significar arritmias, debilidad, complicaciones graves. Puede significar una urgencia. Puede significar miedo.
+Y yo tenía miedo.
+Miedo de que algo le pasara a Hugo quien Agus tamto amaba.
+Miedo de no poder hacer nada.
+Miedo de perder.
+Medir potasio, entonces, no nació de un paper ni de una tabla clínica. Nació del deseo profundo de anticiparse al daño, de prevenir, de acompañar. De cuidar antes de que sea tarde. De ofrecer una herramienta, por más pequeña que fuera, que ayudara a entender el cuerpo y sus señales.
+Este medidor de potasio es una extensión natural de ese mismo amor que dio origen al proyecto original. Es el mismo corazón, pero con más experiencia. Es la misma intención, pero con más conocimiento. Es la evolución de una idea que siempre quiso lo mismo: proteger.
+Porque no todas las personas tienen acceso fácil a controles constantes.
+Porque no todas las familias pueden pagar estudios frecuentes.
+Porque no todos los cuerpos son escuchados a tiempo.
+Este dispositivo intenta, humildemente, democratizar el monitoreo de un parámetro vital. No reemplaza a un médico, no pretende ser infalible. Pero acompaña. Advierte. Da información. Y a veces, eso ya es muchísimo.
+Medir potasio, en este contexto, es un acto de amor técnico.
+Es decir: me importa tu salud.
+Es decir: quiero ayudarte a vivir mejor.
+Es decir: tu cuerpo vale.
+Este proyecto nació del amor por una persona, pero creció para abrazar a muchas.
+Y aunque su origen sea íntimo, su propósito es colectivo.
+Porque a veces cuidar también es crearr.
+Y a veces medir también es amar.
 
 ---
 
 Y también, a continuación te explico por qué mi medidor de salinidad básico con Arduino marca una diferencia real y tiene tanto valor:
 
-🌍 1. Democratiza la medición de conductividad y salinidad
+🌍 1. Democratiza la medición de potasio
 
-Mi dispositivo usa componentes accesibles y económicos, permitiendo que cualquier persona, bioquímico, paciente renal, deportista, estudiante o hasta un docente de escuela técnica, etc. pueda medir la conductividad de una muestra.
+Mi dispositivo usa componentes accesibles y económicos, permitiendo que cualquier persona, bioquímico, paciente renal, deportista, estudiante o hasta un docente de escuela técnica, etc. pueda medir el potasio de una muestra.
 
 
 
@@ -194,7 +235,7 @@ Mi dispositivo usa componentes accesibles y económicos, permitiendo que cualqui
 
 Es una herramienta práctica para iniciar proyectos de investigación en biología, química o medicina, incluso en zonas con pocos recursos.
 
-Puede usarse para monitoreo de salud (sudor/orina), donde medir la salinidad es clave.
+Puede usarse para monitoreo de salud (sudor/orina), donde medir como em el caso de Hugo, es clave.
 
 
 
@@ -204,7 +245,7 @@ Puede usarse para monitoreo de salud (sudor/orina), donde medir la salinidad es 
 
 El código y estructura están preparados para futuras ampliaciones:
 
-Mostrar salinidad real cuando se disponga de la fórmula profesional.
+Mostrar medición de potasio real cuando se disponga de la fórmula profesional.
 
 Alertas leds.
 
@@ -230,7 +271,7 @@ En vez de limitarse a jugar con electrónica, mi proyecto está pensado para res
 
 Monitoreo de salud (sudor/orina).
 
-Evaluar la hidratación en deportistas.
+Evaluación del potasio.
 
 Detectar cambios en muestras biológicas.
 
@@ -344,7 +385,7 @@ Paulina Juich
 
 Técnica Analista Universitaria en Sistemas, Tech Support IT, Programadora de PC de la UTN, autora y desarrolladora de este dispositivo, su diseño técnico, lógico y funcional. 
  
-Julio 2025
+Septiembre 2025 - 2026
 
 ---
 
