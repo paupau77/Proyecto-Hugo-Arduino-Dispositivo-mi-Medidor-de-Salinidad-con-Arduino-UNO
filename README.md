@@ -27,54 +27,75 @@ Su figura estuvo presente como referencia de valores que atraviesan todo el desa
 ---
 
 ## 📋 Índice del Proyecto
-1. 📖 Presentación del Proyecto
-1.1 Descripción general
-1.2 Alcance y advertencias
-1.3 Dedicatoria
-2. ⚙️ Hardware y Componentes
-2.1 Lista de componentes
-2.2 Esquema de conexión
-2.3 Simulación en Tinkercad y Wokwi
-2.4 Acondicionamiento de señal con LM358
-3. 🧠 Funcionamiento del Sistema
-3.1 Principio de medición
-3.2 Modelo matemático
-3.3 Modos de funcionamiento
-3.4 Flujo general del sistema
-4. 💻 Desarrollo del Software
-4.1 Librerías utilizadas
-4.2 Variables y estructura
-4.3 Configuración (setup)
-4.4 Ciclo principal (loop)
-4.5 Fragmentos de código destacados
-5. 📚 Documentación Técnica
-5.1 Archivos complementarios
-5.2 Verificación en simuladores
-5.3 Fichas técnicas
-6. 💖 Sentido Humano del Proyecto
-6.1 Por qué medir potasio
-6.2 Historia personal
-6.3 Impacto social
-6.4 Democratización de la medición
-7. 🌍 Valor e Importancia del Dispositivo
-7.1 Aplicaciones prácticas
-7.2 Uso educativo y científico
-7.3 Proyección futura
-8. ❤️ Agradecimientos
-8.1 Familia y entorno
-8.2 Amistades
-8.3 Docentes y acompañantes
-9. 🙌 Créditos
-9.1 Profesor Sergio Conde
-9.2 Colaboraciones especiales
-10. 📄 Licencia y Derechos
-10.1 Registro DNDA
-10.2 Condiciones de uso
-11. ✍️ Autora
-11.1 Formación
-11.2 Trayectoria
-12. 🌟 Nota Final
 
+
+### ** 1. 📖 Presentación del Proyecto
+
+* **1.1 Descripción general
+* **1.2 Alcance y advertencias
+* **1.3 Dedicatoria
+  
+### ** 2. ⚙️ Hardware y Componentes
+
+* **2.1 Lista de componentes
+* **2.2 Esquema de conexión
+* **2.3 Simulación en Tinkercad y Wokwi
+* **2.4 Acondicionamiento de señal con LM358
+  
+### ** 3. 🧠 Funcionamiento del Sistema
+
+* **3.1 Principio de medición
+* **3.2 Modelo matemático
+* **3.3 Modos de funcionamiento
+* **3.4 Flujo general del sistema
+  
+### ** 4. 💻 Desarrollo del Software
+* **4.1 Librerías utilizadas
+* **4.2 Variables y estructura
+* **4.3 Configuración (setup)
+* **4.4 Ciclo principal (loop)
+* **4.5 Fragmentos de código destacados
+
+### ** 5. 📚 Documentación Técnica
+* **5.1 Archivos complementarios
+* **5.2 Verificación en simuladores
+* **5.3 Fichas técnicas
+
+### ** 6. 💖 Sentido Humano del Proyecto
+
+* **6.1 Por qué medir potasio
+* **6.2 Historia personal
+* **6.3 Impacto social
+* **6.4 Democratización de la medición
+
+### ** 7. 🌍 Valor e Importancia del Dispositivo
+
+* **7.1 Aplicaciones prácticas
+* **7.2 Uso educativo y científico
+* **7.3 Proyección futura
+
+### ** 8. ❤️ Agradecimientos
+
+* **8.1 Familia y entorno
+* **8.2 Amistades
+* **8.3 Docentes y acompañantes
+
+### ** 9. 🙌 Créditos
+
+* **9.1 Profesor Sergio Conde
+* **9.2 Colaboraciones especiales
+
+### ** 10. 📄 Licencia y Derechos
+
+* **10.1 Registro DNDA
+* **10.2 Condiciones de uso
+
+### ** 11. ✍️ Autora
+
+* **11.1 Formación
+* **11.2 Trayectoria
+
+### ** 12. 🌟 Nota Final
 ---
 
 ## 🔧 Componentes
