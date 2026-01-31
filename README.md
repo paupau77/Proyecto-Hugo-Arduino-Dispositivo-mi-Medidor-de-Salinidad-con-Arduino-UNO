@@ -26,30 +26,58 @@ Su figura estuvo presente como referencia de valores que atraviesan todo el desa
 
 ---
 
-## 📋 Índice de mi Proyecto
-
-### **1. ⚙️ Hardware y Componentes**
-* **1.1. 🔧 Componentes**
-* **1.2. 🔌 Esquema de conexión**
-* **1.3. ⚡ Acondicionamiento (LM358)**
-
-### **2. 🧠 Lógica del Sistema**
-* **2.1. 🧠 Funcionamiento del sistema**
-* **2.2. 💻 Código Arduino destacado**
-* **2.3. 🛠️ Modos de Medición y Calibración**
-
-### **3. 💖 El Corazón del Proyecto**
-* **3.1. 💖 Historia y sentimiento**
-* **3.2. 🌍 Valor del dispositivo**
-
-### **4. ❤️ Agradecimientos y Licencia**
-* **4.1. ♥️ Agradecimientos detallados**
-* **4.2. 🙌 Créditos al Profe Sergio Conde**
-* **4.3. 📄 Licencia y Autora**
+## 📋 Índice del Proyecto
+1. 📖 Presentación del Proyecto
+1.1 Descripción general
+1.2 Alcance y advertencias
+1.3 Dedicatoria
+2. ⚙️ Hardware y Componentes
+2.1 Lista de componentes
+2.2 Esquema de conexión
+2.3 Simulación en Tinkercad y Wokwi
+2.4 Acondicionamiento de señal con LM358
+3. 🧠 Funcionamiento del Sistema
+3.1 Principio de medición
+3.2 Modelo matemático
+3.3 Modos de funcionamiento
+3.4 Flujo general del sistema
+4. 💻 Desarrollo del Software
+4.1 Librerías utilizadas
+4.2 Variables y estructura
+4.3 Configuración (setup)
+4.4 Ciclo principal (loop)
+4.5 Fragmentos de código destacados
+5. 📚 Documentación Técnica
+5.1 Archivos complementarios
+5.2 Verificación en simuladores
+5.3 Fichas técnicas
+6. 💖 Sentido Humano del Proyecto
+6.1 Por qué medir potasio
+6.2 Historia personal
+6.3 Impacto social
+6.4 Democratización de la medición
+7. 🌍 Valor e Importancia del Dispositivo
+7.1 Aplicaciones prácticas
+7.2 Uso educativo y científico
+7.3 Proyección futura
+8. ❤️ Agradecimientos
+8.1 Familia y entorno
+8.2 Amistades
+8.3 Docentes y acompañantes
+9. 🙌 Créditos
+9.1 Profesor Sergio Conde
+9.2 Colaboraciones especiales
+10. 📄 Licencia y Derechos
+10.1 Registro DNDA
+10.2 Condiciones de uso
+11. ✍️ Autora
+11.1 Formación
+11.2 Trayectoria
+12. 🌟 Nota Final
 
 ---
 
-## 🔧 1.1. Componentes
+## 🔧 Componentes
 
 | Componente | Cantidad | Descripción |
 | :--- | :---: | :--- |
@@ -71,7 +99,7 @@ Su figura estuvo presente como referencia de valores que atraviesan todo el desa
 
 ---
 
-## 📷 Desde los simuladores
+## 📷 Desde los simuladores (estoy trabajando en eso💪🏼✨)
 
 ![Esquema de Tinkercad](esquema_tinkercad.png)
 
@@ -83,16 +111,16 @@ Su figura estuvo presente como referencia de valores que atraviesan todo el desa
 
 ---
 
-## ⚡ 1.3. Acondicionamiento de Señal (LM358)
+## ⚡ Acondicionamiento de Señal (LM358)
 
 Se utiliza el **LM358** para tratar la señal antes de ser procesada por el Arduino.
 En el diagrama "Reemplazo Real Electrodo", se muestra cómo el potenciómetro se sustituye 1:1 por electrodos reales ($K^+$ y REF), permitiendo que el proyecto escale a una aplicación real sin cambios en el código.
 
 ---
 
-## 🧠 2. Funcionamiento del Sistema
+## 🧠 Funcionamiento del Sistema
 
-### 📊 2.1. Modelo Matemático
+### 📊  Modelo Matemático
 
 El sistema procesa la lectura del ADC (0-1023) y la convierte en voltaje para luego aplicar un modelo lineal:
 
@@ -109,7 +137,7 @@ El pulsador permite alternar entre dos estados visuales:
 
 ---
 
-## 💻 2.3. Código Arduino Destacado
+## 💻 Código Arduino Destacado
 
 El software utiliza la librería `LiquidCrystal` y gestiona el cambio de modo mediante interrupción lógica por software:
 
@@ -194,7 +222,7 @@ Para más detalles sobre el diseño, verificación y funcionamiento del disposit
 
 ---
 
-## 💖 3.1. Por qué medir Potasio?
+## 💖 Por qué medir Potasio?
 Este proyecto siempre fue mucho más que electrónica.
 Nunca fue solo medir valores, mostrar números o programar un microcontrolador.
 Desde el primer día, fue una forma de cuidar.
