@@ -253,7 +253,7 @@ Desde el primer día, fue una forma de cuidar.
 
 Cuando pensé este dispositivo, lo hice desde el amor y desde el miedo. Desde ese impulso profundo que aparece cuando alguien que amás podría estar en riesgo, y vos no querés quedarte de brazos cruzados. El potasio, como electrolito esencial, apareció en este camino de la misma manera que apareció todo lo demás: como una preocupación real, concreta, humana.
 
-Hugo, tenía problemas renales y dificultades para regular su potasio. Y cuando alguien tiene un riñón solo riñón y que no funciona como debería, el potasio deja de ser una palabra técnica y volverse algo vital, serio, delicado, incluso peligroso. Un valor alto o bajo puede significar arritmias, debilidad, complicaciones graves. Puede significar una urgencia. Puede significar miedo.
+Hugo, tenía problemas renales y dificultades para regular su potasio. Y cuando alguien tiene un riñón solo y que no funciona como debería, el potasio deja de ser una palabra técnica y volverse algo vital, serio, delicado, incluso peligroso. Un valor alto o bajo puede significar arritmias, debilidad, complicaciones graves. Puede significar una urgencia. Puede significar miedo.
 
 Y yo tenía miedo.
 
