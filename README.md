@@ -3,9 +3,11 @@
 ![Arduino](https://img.shields.io/badge/Arduino-UNO-00979D?style=for-the-badge&logo=arduino&logoColor=white)
 ![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
 ![Electrónica](https://img.shields.io/badge/Electrónica-Analog-FA7343?style=for-the-badge&logoColor=white)
+![Simulator](https://img.shields.io/badge/Wokwi%20%26%20Tinkercad-Online-1ABC9C?style=for-the-badge&logo=tinkercad&logoColor=white)
 ![LCD 16x2](https://img.shields.io/badge/LCD-16x2-1E90FF?style=for-the-badge)
 ![LM358](https://img.shields.io/badge/OpAmp-LM358-yellow?style=for-the-badge)
 ![Proyecto Activo](https://img.shields.io/badge/Estado-Activo-brightgreen?style=for-the-badge)
+![En Desarrollo](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow?style=for-the-badge)
 ![Licencia DNDA](https://img.shields.io/badge/Licencia-DNDA-orange?style=for-the-badge)
 
 > Este proyecto es un **medidor de potasio (K+) experimental basado en Arduino UNO**. Está orientado a aplicaciones educativas y de prototipado, utilizando un **Amplificador Operacional LM358** para el acondicionamiento de señal, siguiendo la lógica de la instrumentación analítica real.
