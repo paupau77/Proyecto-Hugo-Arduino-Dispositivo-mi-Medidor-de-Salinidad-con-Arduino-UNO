@@ -1,109 +1,63 @@
-# Proyecto Hugo - Medidor de Salinidad Básico con Arduino UNO
+# Proyecto Hugo - Medidor experimental de Potasio (K+) con Arduino y LM358
 
-
-![Arduino](https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=arduino&logoColor=white)
+![Arduino](https://img.shields.io/badge/Arduino-UNO-00979D?style=for-the-badge&logo=arduino&logoColor=white)
 ![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
-![Electrónica](https://img.shields.io/badge/Electrónica-FA7343?style=for-the-badge&logoColor=white)
-![LCD 16x2](https://img.shields.io/badge/LCD-I2C-1E90FF?style=for-the-badge)
-![Simulator](https://img.shields.io/badge/Wokwi%20%26%20Tinkercad-Online-1ABC9C?style=for-the-badge&logo=tinkercad&logoColor=white)
+![Electrónica](https://img.shields.io/badge/Electrónica-Analog-FA7343?style=for-the-badge&logoColor=white)
+![LCD 16x2](https://img.shields.io/badge/LCD-16x2-1E90FF?style=for-the-badge)
+![LM358](https://img.shields.io/badge/OpAmp-LM358-yellow?style=for-the-badge)
 ![Proyecto Activo](https://img.shields.io/badge/Estado-Activo-brightgreen?style=for-the-badge)
 ![Licencia DNDA](https://img.shields.io/badge/Licencia-DNDA-orange?style=for-the-badge)
-![Issues 0 open](https://img.shields.io/badge/issues-0%20open-black?style=for-the-badge&logo=github&logoColor=white)
-![En Desarrollo](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow?style=for-the-badge)
 
-
-> Dispositivo básico para medir la conductividad eléctrica de una muestra líquida (simulada con un potenciómetro), mostrando en pantalla LCD 16x2 I2C el voltaje, valor ADC y una estimación simple de la conductividad. Está preparado para incorporar una fórmula profesional que convierta la conductividad a salinidad real (g/L, ppt, etc) cuando se disponga.
-
-Este proyecto fue creado con mucho ❤️ para ayudar en monitoreo de salud, química, biología, etc.
+> Este proyecto es un **medidor de potasio (K+) experimental basado en Arduino UNO**. Está orientado a aplicaciones educativas y de prototipado, utilizando un **Amplificador Operacional LM358** para el acondicionamiento de señal, siguiendo la lógica de la instrumentación analítica real.
+> 
+> Está **documentado con detalle, modular, abierto a mejoras, y hecho con un profundo sentido humano y compromiso social**.
+> NO constituye un dispositivo médico ni realiza diagnósticos clínicos.
+> Este proyecto fue creado con mucho ❤️ para ayudar en el monitoreo de salud, química y biología.
 
 ---
 
-## Dedicatoria💚
+## Dedicatoria 💚
 
-Este proyecto está dedicado **en memoria de Hugo Passucci**,  
-una de las dos inspiraciones humanas de este proyecto.
+Este proyecto está dedicado **en memoria de Hugo Passucci**, una de las dos inspiraciones humanas de este proyecto.
 
-Su figura estuvo presente como referencia de valores que atraviesan todo el desarrollo del dispositivo: el cuidado, la voluntad, la búsqueda de ayudar a los demás y el compromiso con lo humano detrás de lo técnico.
-
-Nombrar este proyecto con su nombre es también una forma de reconocer esa inspiración que me ha dado y de darle continuidad a la huella que dejó.
+Su figura estuvo presente como referencia de valores que atraviesan todo el desarrollo del dispositivo: el cuidado, la voluntad, la búsqueda de ayudar a los demás y el compromiso con lo humano detrás de lo técnico. Nombrar este proyecto con su nombre es una forma de reconocer esa inspiración y darle continuidad a la huella que dejó.
 
 ---
 
 ## 📋 Índice de mi Proyecto
 
-
-
 ### **1. ⚙️ Hardware y Componentes**
-
 * **1.1. 🔧 Componentes**
 * **1.2. 🔌 Esquema de conexión**
-* **1.3. 📷 Esquemas & simuladores**
-
-
+* **1.3. ⚡ Acondicionamiento (LM358)**
 
 ### **2. 🧠 Lógica del Sistema**
-
 * **2.1. 🧠 Funcionamiento del sistema**
 * **2.2. 💻 Código Arduino destacado**
-* **2.3. 🧠 Funcionamiento del código**
+* **2.3. 🛠️ Modos de Medición y Calibración**
 
+### **3. 💖 El Corazón del Proyecto**
+* **3.1. 💖 Historia y sentimiento**
+* **3.2. 🌍 Valor del dispositivo**
 
-
-### **3. 📈 Estado y Desarrollo**
-
-* **3.1. 🧪 Estado actual**
-* **3.2. 🦋 Nueva rama, progreso del mes de Agosto 2025**
-
-
-
-### **4. 📚Futuro y Documentación**
-
-* **4.1. 🚀 Posibles mejoras futuras**
-* **4.2. 📚 Documentación**
-
-
-
-### **5. ❤️ Agradecimientos y Licencia**
-
-* **5.1. 💖 Mi proyecto fue hecho desde el corazón**
-* **5.2. ♥️ Agradecimientos**
-* **5.3. 🙌 Créditos**
-* **5.4. 📄 Licencia**
-* **5.5. ✍️ Autora**
+### **4. ❤️ Agradecimientos y Licencia**
+* **4.1. ♥️ Agradecimientos detallados**
+* **4.2. 🙌 Créditos al Profe Sergio Conde**
+* **4.3. 📄 Licencia y Autora**
 
 ---
 
-##  🔧 Componentes
+## 🔧 1.1. Componentes
 
-| Componente              | Cantidad             |
-|------------------------|----------------------|
-| Arduino UNO / Nano / compatible | 1                    |
-| Sensor de conductividad (analógico) | 1                    |
-| Pantalla OLED SSD1306 (I2C) o LCD 16x2 I2C | 1              |
-| Pulsador                | 1                    |
-| Protoboard o placa perforada | 1                    |
-| Cables dupont           | Varios               |
-
----
-
-##  🔌 Esquema de conexión
-
-- **Sensor de conductividad:**  
-  - Salida analógica → Pin `A0` del Arduino
-
-- **Pantalla OLED SSD1306 (I2C) o LCD 16x2 I2C:**  
-  - SDA → Pin `A4` (Arduino UNO/Nano)  
-  - SCL → Pin `A5` (Arduino UNO/Nano)  
-  - VCC → 5V (ambas son compatibles con 5V en la mayoría de los módulos)  
-  - GND → GND  
-
-- **Pulsador:**  
-  - Un extremo a pin digital `2`  
-  - Otro extremo a GND  
-  - Pin configurado con `INPUT_PULLUP` (no requiere resistencia externa)
-
-- **Alimentación:**  
-  - Fuente estable de 5V o conexión USB  
+| Componente | Cantidad | Descripción |
+| :--- | :---: | :--- |
+| **Arduino UNO** | 1 | Microcontrolador principal |
+| **LM358 (Op-Amp)** | 1 | Acondicionador de señal del electrodo |
+| **LCD 16x2** | 1 | Visualización de datos (pines 7, 8, 9, 10, 11, 12) |
+| **Potenciómetro 10k** | 1 | Simulación de Electrodo K+ |
+| **Resistencias** | 3 | 10kΩ para divisor Vref y 1kΩ para filtro |
+| **Capacitor 100nF** | 1 | Filtro paso bajo para estabilidad en A0 |
+| **Pulsador** | 1 | Cambio de modo (Medición/Calibración) |
 
 ---
 
@@ -127,289 +81,59 @@ Nombrar este proyecto con su nombre es también una forma de reconocer esa inspi
 
 ---
 
-## 🧠 Funcionamiento del sistema
+## ⚡ 1.3. Acondicionamiento de Señal (LM358)
 
-- Lee periódicamente el valor analógico del sensor (potenciómetro en este prototipo) conectado al pin A0.  
-- Convierte ese valor ADC a voltaje y calcula una conductividad aproximada usando un valor máximo predefinido (50 mS/cm).  
-- Muestra en la pantalla LCD:  
-  - Voltaje medido  
-  - Conductividad estimada (mS/cm)  
-  - Valor ADC (0-1023)  
-- Envía los mismos datos por el puerto serie para monitoreo externo.  
-- Permite controlar el estado con un botón:  
-  - Pulsación corta: alterna entre medición activa y pausa  
-  - En pausa, muestra mensaje indicándolo y detiene la actualización de datos  
+Se utiliza el **LM358** para tratar la señal antes de ser procesada por el Arduino.
+En el diagrama "Reemplazo Real Electrodo", se muestra cómo el potenciómetro se sustituye 1:1 por electrodos reales ($K^+$ y REF), permitiendo que el proyecto escale a una aplicación real sin cambios en el código.
 
 ---
 
-##  💻 Código Arduino destacado
+## 🧠 2. Funcionamiento del Sistema
 
-- Usa la librería `LiquidCrystal_I2C` para controlar la pantalla LCD 16x2 vía I2C.  
-- Implementa antirrebote software para lectura estable del botón.  
-- La fórmula para convertir ADC a conductividad está parametrizada con una variable `maxConductividad`.  
-- **Preparado para incorporar la fórmula profesional que convierta conductividad a salinidad real**, con un bloque comentado para añadir la ecuación bioquímica cuando esté disponible:  
+### 📊 2.1. Modelo Matemático
 
-```cpp
-// ⚠️ FÓRMULA DE CALIBRACIÓN PENDIENTE:
-// Aquí se debe ingresar la ecuación proporcionada por el profesional bioquímico
-// para convertir la conductividad (en mS/cm) a salinidad (en g/L, ppt, etc).
-// Ejemplo cuando esté disponible:
-// float salinidad = 0.42 * pow(conductividad, 2) - 1.6 * conductividad + 0.9;
-```
+El sistema procesa la lectura del ADC (0-1023) y la convierte en voltaje para luego aplicar un modelo lineal:
 
----
+$$Potasio (K^+) = (2.0 \times Voltaje) - 0.5$$
 
-## 🧠 Funcionamiento del código 
+* **Seguridad:** El código incluye un límite para que el valor de potasio nunca sea menor a cero.
 
-💻 1. Librerías y creación del objeto LCD
+### 🛠️ 2.2. Modos de Funcionamiento
 
-```cpp
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-LiquidCrystal_I2C lcd(0x27, 16, 2);
-```
+El pulsador permite alternar entre dos estados visuales:
 
-Se importan las librerías necesarias para manejar la pantalla LCD por comunicación I2C.
-lcd(0x27, 16, 2) el display está en la dirección 0x27, con 16 columnas y 2 filas.
-
+1.  **Modo Medición (`mode = 0`):** Muestra el nivel de potasio calculado en **mmol/L**.
+2.  **Modo Calibración (`mode = 1`):** Muestra el valor **ADC crudo** y el **voltaje** exacto detectado en A0, permitiendo ajustes técnicos precisos.
 
 ---
 
-👾 2. Pines y variables globales
+## 💻 2.3. Código Arduino Destacado
+
+El software utiliza la librería `LiquidCrystal` y gestiona el cambio de modo mediante interrupción lógica por software:
 
 ```cpp
-const int sensorPin = A0;
-const int buttonPin = 2;
-float maxConductividad = 50.0;
-bool medirActivo = true;
-bool botonPresionado = false;
-```
 
-`sensorPin` es donde está conectado el potenciómetro (A0).
-
-`buttonPin` es el botón para pausar o reanudar.
-
-`maxConductividad` es el valor máximo que se puede medir (para escalar el resultado).
-
-`medirActivo` indica si está midiendo o en pausa.
-
-`botonPresionado` evita que el botón se dispare varias veces seguidas.
-
-
-
----
-
-⏱️ 3. Variables para el tiempo de lectura
-
-```cpp
-unsigned long ultimaLectura = 0;
-const unsigned long intervaloLectura = 300;
-```
-
-Permiten que la medición se actualice cada 300 milisegundos, sin usar delay().
-
-
----
-
-🚀 4. setup()
-
-```cpp
-void setup() {
-  pinMode(sensorPin, INPUT);
-  pinMode(buttonPin, INPUT_PULLUP);
-  lcd.init();
-  lcd.backlight();
-  Serial.begin(9600);
-  lcd.setCursor(0, 0);
-  lcd.print("Medidor Salinidad");
-  lcd.setCursor(0, 1);
-  lcd.print("Iniciando...");
-  delay(2000);
+// Cambio de modo con botón (Antirrebote simple)
+if (lastButtonState == HIGH && buttonState == LOW) {
+  mode = !mode; // Alternar entre 0 y 1
   lcd.clear();
+  delay(300);
 }
-```
 
-Configura los pines.
+// Modelo Matemático SIMULADO
+potassium = (2.0 * voltage) - 0.5;
 
-Inicializa el LCD y la comunicación serial.
-
-Muestra un mensaje de inicio por 2 segundos.
-
-
-
----
-
-🔁 5. loop() (lo que se repite siempre, también es el corazón del programa)
-
-```cpp
-void loop() {
-  leerBoton();
-
-  if (medirActivo && (millis() - ultimaLectura >= intervaloLectura)) {
-    ...
-    mostrarLectura(adc, voltaje, conductividad);
-    ...
-    ultimaLectura = millis();
-  }
-
-  if (!medirActivo) {
-    static bool pausaMostrada = false;
-    if (!pausaMostrada) {
-      ...
-      pausaMostrada = true;
-    }
-  }
-}
-```
-
-Siempre revisa el botón con leerBoton().
-
-Si está midiendo y pasaron 300 ms:
-
-Lee el potenciómetro (analogRead)
-
-Convierte el valor a voltaje y a conductividad
-
-Muestra en pantalla y por serial
-
-
-Si está pausado, muestra un mensaje de pausa una sola vez.
-
-
-
----
-
-🔘 6. leerBoton()
-
-```cpp
-void leerBoton() {
-  static unsigned long lastDebounceTime = 0;
-  static const unsigned long debounceDelay = 50;
-
-  bool estadoBoton = digitalRead(buttonPin) == LOW;
-
-  if (estadoBoton && !botonPresionado && (millis() - lastDebounceTime > debounceDelay)) {
-    botonPresionado = true;
-    medirActivo = !medirActivo;
-    Serial.println(medirActivo ? "MIDIENDO" : "PAUSADO");
-    lcd.clear();
-    lastDebounceTime = millis();
-  }
-
-  if (!estadoBoton && botonPresionado) {
-    botonPresionado = false;
-    lastDebounceTime = millis();
-  }
-}
-```
-
-Es el manejo del botón con antirrebote
-
-Este bloque se asegura de que el botón no cause errores si rebota (señales falsas cuando lo apretás):
-
-Detecta si el botón cambió de estado.
-
-Cambia el modo medirActivo a true o false.
-
-Borra la pantalla y actualiza mensajes según eso.
-
-
-
----
-
-📺 7. mostrarLectura() (básicamente lo que se ve en pantalla)
-
-```cpp
-void mostrarLectura(int adc, float voltaje, float cond) {
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("V:"); lcd.print(voltaje, 1);
-  lcd.print(" C:"); lcd.print(cond, 1);
-  lcd.setCursor(0, 1);
-  lcd.print("ADC:"); lcd.print(adc);
-}
-```
-
-Muestra en pantalla:
-
-El voltaje.
-
-La conductividad.
-
-El valor ADC (de 0 a 1023).
-
-
-
----
-
-##  🧪 Estado actual
-
-- ✅ Funciona correctamente en simuladores (Tinkercad, Wokwi).  
-- ✅ Mide valores analógicos simulados por potenciómetro.  
-- ✅ Muestra datos correctamente en pantalla LCD.  
-- ✅ Permite pausar y reanudar mediciones con botón.  
-- 🕐 A la espera de integración de fórmula profesional para conversión precisa a salinidad.  
-
----
-
-## 🦋 Progreso Agosto 2025: Medición con cálculo de salinidad y soporte OLED/LCD (rama `VersionAgosto2025`)
-
-Esta rama contiene mejoras y el progreso correspondiente al mes de Agosto que incluyen:
-
-- Soporte dual de pantallas OLED SSD1306 y LCD 16x2 I2C, seleccionable en el código.
-- Cálculo y visualización de salinidad estimada en gramos por litro (g/L).
-- Implementación de tres fórmulas configurables para convertir conductividad a salinidad:
-  - Lineal
-  - Cuadrática
-  - Cúbica  
-- Visualización extendida en pantalla (voltaje, conductividad, salinidad y ADC).
-- Parámetros calibrables (coeficientes de fórmula y rango máximo de conductividad).
-- Simulación y validación en plataformas Wokwi y Tinkercad con potenciómetro.
-- Gestión mejorada del botón con antirrebote para evitar lecturas erráticas.
-- Código modular preparado para futuras integraciones con fórmulas de calibración profesional y nuevos sensores.
-- Envío por puerto serial de todos los parámetros: ADC, voltaje, conductividad y salinidad.
-
-### Ejemplo de visualización en pantalla LCD o OLED:
-
-```
-V:2.3 C:24.5
-S:5.6g/L ADC:512
-```
-
-### Selección de fórmula en el código:
-
-```cpp
-int tipoFormula = 3; // 1=lineal, 2=cuadrática, 3=cúbica
-
-float salinidad = 0.0;
-if (tipoFormula == 1) {
-  salinidad = a1 * conductividad + b1;
-} else if (tipoFormula == 2) {
-  salinidad = a2 * pow(conductividad, 2) + b2 * conductividad + c2;
-} else if (tipoFormula == 3) {
-  salinidad = a3 * pow(conductividad, 3) + b3 * pow(conductividad, 2) + c3 * conductividad + d3;
+// Visualización condicional
+if (mode == 0) {
+  mostrarPotasio(potassium);
+} else {
+  mostrarCalibracion(raw, voltage);
 }
 ```
 
 ---
 
-## Estado actual
-
-- Rama `main`: funcional para medición básica con LCD 16x2 y potenciómetro.
-- Rama `VersionAgosto2025`: A la espera de la revisión de un profesional bioquímico o profesional de la química. Incluye cálculo y visualización de salinidad, soporte OLED, fórmulas configurables y simulación completa.
-- Validado en simuladores Wokwi y Tinkercad.
-- Código documentado y modular para facilitar calibración y expansión.
-
----
-
-##  🚀 Posibles mejoras futuras
-
-- Incorporar la fórmula química o bioquímica para convertir conductividad a salinidad real.  
-- Alertas led
-
----
-
-## 📚 Documentación
+## 📚 Documentación (en progreso, estoy trabajando en eso)
 Para más detalles sobre el diseño, verificación y funcionamiento del dispositivo, consulta los siguientes archivos:
 
 * [Doc - Descripción del dispositivo](Doc%20-%20Descripci%C3%B3n%20del%20dispositivo%20.pdf)
