@@ -545,30 +545,6 @@ body {
   transform: translateY(-5px);
 }
 
-/* --- ARREGLO PARA LA BARRA DE POTASIO --- */
-#version-potasio .sidebar {
-  display: flex;             /* Pone los botones uno al lado del otro */
-  justify-content: center;   /* Los centra */
-  gap: 15px;                 /* Espacio entre botones */
-  padding: 20px;
-  background: transparent;
-  flex-wrap: wrap;           /* Si no caben, bajan ordenados */
-}
-
-#version-potasio .sidebar button {
-  padding: 10px 20px;
-  border: 1px solid #bf953f; /* Borde dorado */
-  background: #fff;
-  color: #854d0e;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-#version-potasio .sidebar button:hover {
-  background: #fef08a;       /* Color suave al pasar el mouse */
-}
-
 
 /* ===============================
    RESPONSIVE NAVBAR – UNA SOLA LÍNEA
@@ -810,6 +786,16 @@ body {
     </p>
   </main>
 
+<div class="sidebar">  <button onclick="mostrarInicio()">Inicio</button>
+   <button onclick="mostrarComponentes()">Componentes</button>
+   <button onclick="mostrarVision()">Visión</button>
+
+   <button onclick="activarModoPotasio()" style="width: 100%; margin-top: 15px; padding: 15px; background: linear-gradient(45deg, #bf953f, #fcf6ba, #aa771c); color: #422006; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3); transition: transform 0.2s;">
+  ✨ VER MEDIDOR DE POTASIO ✨
+</button>
+
+</div>
+
   <!-- COMPONENTES -->
   <section class="section" id="section-componentes">
     <h2 style="font-size:2em;text-align:center;color:#e85d8f;">⚡ Detalles Electrónicos del Proyecto</h2>
@@ -986,16 +972,6 @@ body {
 </div>
     </section>
 </div> <div id="version-potasio" class="hidden" style="max-width: 1000px; margin: 0 auto; padding: 20px;">
-
-<div class="sidebar">  <button onclick="mostrarInicio()">Inicio</button>
-   <button onclick="mostrarComponentes()">Componentes</button>
-   <button onclick="mostrarVision()">Visión</button>
-
-   <button onclick="activarModoPotasio()" style="width: 100%; margin-top: 15px; padding: 15px; background: linear-gradient(45deg, #bf953f, #fcf6ba, #aa771c); color: #422006; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3); transition: transform 0.2s;">
-  ✨ VER MEDIDOR DE POTASIO ✨
-</button>
-
-</div>
 
     <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
         <img src="1000390871.png" alt="Corazón" style="width: 70px; height: auto;">
@@ -1243,69 +1219,6 @@ function toggleSidebar() {
   overlay.classList.toggle('active');
 }
 </script>
-<script>
-// Referencias globales para no repetir código
-const navSalinidad = document.querySelector('nav');
-const mainWrapper = document.querySelector('.main-wrapper');
-const footer = document.querySelector('.footer');
-const seccionPotasio = document.getElementById('version-potasio');
-
-function activarModoPotasio() {
-  // 1. OCULTAR todo lo de Salinidad (Nav y Contenido)
-  if(navSalinidad) navSalinidad.style.display = 'none';
-  if(mainWrapper) mainWrapper.style.display = 'none';
-
-  // 2. MOSTRAR Potasio
-  if (seccionPotasio) {
-    seccionPotasio.classList.remove('hidden');
-    seccionPotasio.style.display = 'block';
-  }
-
-  // 3. Ajuste visual (cambiar color footer al dorado)
-  if(footer) footer.style.background = '#b38728';
-
-  // 4. Subir al inicio
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
-
-function mostrarInicio() {
-  // 1. OCULTAR Potasio
-  if (seccionPotasio) {
-    seccionPotasio.style.display = 'none';
-  }
-
-  // 2. MOSTRAR Salinidad
-  if(navSalinidad) navSalinidad.style.display = 'block'; // Vuelve la barra original
-  if(mainWrapper) mainWrapper.style.display = 'block';
-
-  // 3. Restaurar color footer
-  if(footer) footer.style.background = 'var(--aqua-strong)';
-  
-  // 4. Ir a la sección inicio
-  // Simula clic en el botón Inicio para resetear vistas internas
-  const btnInicio = document.querySelector('button[data-section="inicio"]');
-  if(btnInicio) btnInicio.click();
-}
-
-// Estas funciones estaban vacías en tu código original, 
-// ahora redirigen a la sección correcta de la web original.
-function mostrarComponentes() {
-  mostrarInicio(); // Primero volvemos a la estructura base
-  setTimeout(() => {
-    const btn = document.querySelector('button[data-section="componentes"]');
-    if(btn) btn.click();
-  }, 50);
-}
-
-function mostrarVision() {
-  mostrarInicio();
-  setTimeout(() => {
-    const btn = document.querySelector('button[data-section="vision"]');
-    if(btn) btn.click();
-  }, 50);
-}
-</script>
-
 
 </body>
 </html>
