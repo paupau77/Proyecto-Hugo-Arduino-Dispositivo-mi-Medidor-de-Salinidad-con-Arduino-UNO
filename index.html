@@ -1267,5 +1267,18 @@ function activarModoSalinidad(){
   document.getElementById("version-salinidad").classList.remove("hidden");
 }
 </script>
+<script>
+function activarModoPotasio(){
+  document.getElementById("version-salinidad").classList.add("hidden");
+  document.getElementById("version-potasio").classList.remove("hidden");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function activarModoSalinidad(){
+  document.getElementById("version-potasio").classList.add("hidden");
+  document.getElementById("version-salinidad").classList.remove("hidden");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+</script>
 </body>
 </html>
