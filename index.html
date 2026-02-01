@@ -959,20 +959,25 @@ body {
       </div>
     </div>
 </div>
-    </section>
-</div> <div id="version-potasio" class="hidden" style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+   </section>
 
-<div class="sidebar">  <button onclick="mostrarInicio()">Inicio</button>
-   <button onclick="mostrarComponentes()">Componentes</button>
-   <button onclick="mostrarVision()">Visión</button>
-   
-   <button onclick="activarModoPotasio()" style="width: 100%; margin-top: 15px; padding: 15px; background: linear-gradient(45deg, #bf953f, #fcf6ba, #aa771c); color: #422006; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3); transition: transform 0.2s;">
-  ✨ VER MEDIDOR DE POTASIO ✨
+<div id="version-potasio" class="hidden" style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+
+<button onclick="activarModoSalinidad()" class="btn">
+⬅ Volver a Salinidad
 </button>
 
+<div class="sidebar">
+  <button onclick="mostrarInicio()">Inicio</button>
+  <button onclick="mostrarComponentes()">Componentes</button>
+  <button onclick="mostrarVision()">Visión</button>
+
+  <button onclick="activarModoPotasio()" style="width: 100%; margin-top: 15px; padding: 15px; background: linear-gradient(45deg, #bf953f, #fcf6ba, #aa771c); color: #422006; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3);">
+    ✨ VER MEDIDOR DE POTASIO ✨
+  </button>
 </div>
-    
-    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
+
+<div style="text-align:center; margin-bottom:30px;">
         <img src="1000390871.png" alt="Corazón" style="width: 70px; height: auto;">
         <div>
             <h1 style="color: var(--accent-gold); font-family: 'Outfit'; font-size: 2.8rem; margin: 0;">Proyecto Hugo<span style="color: #22c55e;">💚</span></h1>
@@ -1251,6 +1256,16 @@ function activarModoPotasio() {
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 </script>
+<script>
+function activarModoPotasio(){
+  document.getElementById("version-salinidad").classList.add("hidden");
+  document.getElementById("version-potasio").classList.remove("hidden");
+}
 
+function activarModoSalinidad(){
+  document.getElementById("version-potasio").classList.add("hidden");
+  document.getElementById("version-salinidad").classList.remove("hidden");
+}
+</script>
 </body>
 </html>
