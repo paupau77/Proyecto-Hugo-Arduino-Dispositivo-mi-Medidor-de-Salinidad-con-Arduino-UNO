@@ -692,6 +692,9 @@ main.section.active {
     <div id="version-salinidad" style="flex: 1; padding: 40px 20px; max-width: 1100px; margin: 0 auto; width: 100%;">
 
 <h1>Proyecto Hugo💚</h1>
+<button onclick="mostrarPotasio()" class="btn">
+VER POTASIO
+</button>
     <p>
       Este proyecto es un <strong>medidor de salinidad experimental</strong> basado en Arduino UNO,
       orientado a aplicaciones educativas, científicas y de prototipado.
@@ -793,7 +796,7 @@ main.section.active {
       </a>
     </p>
   </main>
-<div id="version-potasio" "style="display: none;">
+<main class="section" id="section-potasio">
 
     <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
         <img src="1000390871.png" alt="Corazón" style="width: 70px; height: auto;">
@@ -880,7 +883,7 @@ main.section.active {
 </div>
 
   </section>
-  </div>
+  </main>
 <div class="sidebar">  <button onclick="mostrarInicio()">Inicio</button>
    <button onclick="mostrarComponentes()">Componentes</button>
    <button onclick="mostrarVision()">Visión</button>
@@ -1222,12 +1225,31 @@ window.onload = () => {
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
-
-  // clase 'active' para mover la solapa
   sidebar.classList.toggle('active');
   overlay.classList.toggle('active');
 }
-</script>
 
+/* --- SISTEMA DE SECCIONES --- */
+function mostrarSeccion(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function mostrarInicio() {
+  mostrarSeccion('section-inicio');
+}
+
+function mostrarComponentes() {
+  mostrarSeccion('section-componentes');
+}
+
+function mostrarVision() {
+  mostrarSeccion('section-vision');
+}
+
+function mostrarPotasio() {
+  mostrarSeccion('section-potasio');
+}
+</script>
 </body>
 </html>
