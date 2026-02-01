@@ -545,6 +545,30 @@ body {
   transform: translateY(-5px);
 }
 
+/* --- ARREGLO PARA LA BARRA DE POTASIO --- */
+#version-potasio .sidebar {
+  display: flex;             /* Pone los botones uno al lado del otro */
+  justify-content: center;   /* Los centra */
+  gap: 15px;                 /* Espacio entre botones */
+  padding: 20px;
+  background: transparent;
+  flex-wrap: wrap;           /* Si no caben, bajan ordenados */
+}
+
+#version-potasio .sidebar button {
+  padding: 10px 20px;
+  border: 1px solid #bf953f; /* Borde dorado */
+  background: #fff;
+  color: #854d0e;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#version-potasio .sidebar button:hover {
+  background: #fef08a;       /* Color suave al pasar el mouse */
+}
+
 
 /* ===============================
    RESPONSIVE NAVBAR – UNA SOLA LÍNEA
@@ -1220,35 +1244,68 @@ function toggleSidebar() {
 }
 </script>
 <script>
+// Referencias globales para no repetir código
+const navSalinidad = document.querySelector('nav');
+const mainWrapper = document.querySelector('.main-wrapper');
+const footer = document.querySelector('.footer');
+const seccionPotasio = document.getElementById('version-potasio');
+
 function activarModoPotasio() {
-  const salinidad = document.getElementById('version-salinidad');
-  const potasio = document.getElementById('version-potasio');
+  // 1. OCULTAR todo lo de Salinidad (Nav y Contenido)
+  if(navSalinidad) navSalinidad.style.display = 'none';
+  if(mainWrapper) mainWrapper.style.display = 'none';
 
-  // 1. Apagar salinidad y prender potasio
-  if (salinidad) salinidad.style.display = 'none';
-  if (potasio) {
-    potasio.classList.remove('hidden');
-    potasio.style.display = 'block';
+  // 2. MOSTRAR Potasio
+  if (seccionPotasio) {
+    seccionPotasio.classList.remove('hidden');
+    seccionPotasio.style.display = 'block';
   }
 
-  // 2. Cambiar tus colores reales a Dorado
-  document.documentElement.style.setProperty('--turquesa', '#bf953f');
-  document.documentElement.style.setProperty('--aqua-strong', '#b38728');
-  document.documentElement.style.setProperty('--aqua', '#fcf6ba');
+  // 3. Ajuste visual (cambiar color footer al dorado)
+  if(footer) footer.style.background = '#b38728';
 
-  // 3. Cambiar la fecha (buscando el texto exacto)
-  const parrafos = document.getElementsByTagName('p');
-  for (let p of parrafos) {
-    if (p.innerText.includes("Agosto - Diciembre 2025")) {
-      p.innerText = "Septiembre 2025 - 2026";
-    }
-  }
-
-  // 4. Cerrar menú y subir
-  toggleSidebar();
+  // 4. Subir al inicio
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
+
+function mostrarInicio() {
+  // 1. OCULTAR Potasio
+  if (seccionPotasio) {
+    seccionPotasio.style.display = 'none';
+  }
+
+  // 2. MOSTRAR Salinidad
+  if(navSalinidad) navSalinidad.style.display = 'block'; // Vuelve la barra original
+  if(mainWrapper) mainWrapper.style.display = 'block';
+
+  // 3. Restaurar color footer
+  if(footer) footer.style.background = 'var(--aqua-strong)';
+  
+  // 4. Ir a la sección inicio
+  // Simula clic en el botón Inicio para resetear vistas internas
+  const btnInicio = document.querySelector('button[data-section="inicio"]');
+  if(btnInicio) btnInicio.click();
+}
+
+// Estas funciones estaban vacías en tu código original, 
+// ahora redirigen a la sección correcta de la web original.
+function mostrarComponentes() {
+  mostrarInicio(); // Primero volvemos a la estructura base
+  setTimeout(() => {
+    const btn = document.querySelector('button[data-section="componentes"]');
+    if(btn) btn.click();
+  }, 50);
+}
+
+function mostrarVision() {
+  mostrarInicio();
+  setTimeout(() => {
+    const btn = document.querySelector('button[data-section="vision"]');
+    if(btn) btn.click();
+  }, 50);
+}
 </script>
+
 
 </body>
 </html>
