@@ -1085,6 +1085,201 @@ function toggleSidebar() {
 }
 </script>
 
+<!-- Solapa flotante versión potasio (a la izquierda) -->
+<a id="btnPotasioSolapa" href="javascript:void(0);" class="solapa-potasio"
+   aria-label="Ver versión potasio">
+  <span class="solapa-emoji">✨</span>
+  <span>versión <b>POTASIO</b></span>
+  <span class="corazoncito">💖</span>
+</a>
+
+<!-- Panel lateral del contenido de potasio (izquierda) -->
+<aside id="panelPotasio" class="panel-potasio">
+  <button id="cerrarPanelPotasio" aria-label="Cerrar" class="cerrar-panel">
+    &times;
+  </button>
+  <div class="panel-content">
+    <h2>
+      <span class="font-bold" style="color:#bc8800;">El Potasio como acto de amor</span>
+    </h2>
+    <p>
+      Proyecto desarrollado con un profundo sentido humano y compromiso social, pensado para aprendizaje, divulgación científica y exploración tecnológica en áreas como salud, química y biología.<br><br>
+      Este proyecto siempre fue mucho más que electrónica.<br><br>
+      Nunca fue solo medir valores, mostrar números o programar un microcontrolador. Desde el primer día, fue una forma de cuidar.<br><br>
+      Cuando pensé este dispositivo, lo hice desde el amor y desde el miedo. 
+      Desde ese impulso profundo que aparece cuando alguien que amás podría estar en riesgo, y vos no querés quedarte de brazos cruzados. 
+      El potasio, como electrolito esencial, apareció en este camino de la misma manera que apareció todo lo demás: como una preocupación real, concreta, humana.<br><br>
+      Hugo, tenía problemas renales y dificultades para regular su potasio. Y cuando alguien tiene un riñón solo y que no funciona como debería, el potasio se vuelve vital.<br><br>
+      Porque no todas las personas tienen acceso fácil a controles constantes. Porque no todas las familias pueden pagar estudios frecuentes. Porque no todos los cuerpos son escuchados a tiempo.<br><br>
+      Este dispositivo intenta, humildemente, democratizar el monitoreo de un parámetro vital. No reemplaza a un médico, no pretende ser infalible. Pero acompaña. Advierte. Da información. Y a veces, eso ya es muchísimo. Medir potasio, en este contexto, es un acto de amor técnico.<br><br>
+      Es decir: me importa tu salud. Es decir: quiero ayudarte a vivir mejor. Es decir: tu cuerpo vale.<br><br>
+      Este proyecto nació del amor por una persona, pero creció para abrazar a muchas. Y aunque su origen sea íntimo, su propósito es colectivo.<br><br>
+      <b style="color:#bb4b00;">"Porque a veces cuidar también es crear. Y medir también es amar."</b> <span style="font-size:1.2em;">💖</span>
+      <blockquote style="margin-top:0.5em;color:#745000;">
+        "A veces el amor también se expresa con circuitos, con sensores..."
+      </blockquote>
+    </p>
+  </div>
+</aside>
+
+<style>
+/* Solapa flotante IZQUIERDA */
+.solapa-potasio {
+  position: fixed;
+  left: 0; bottom: 26px;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  gap: 0.52em;
+  padding: 0.8em 1.45em;
+  background: linear-gradient(90deg,#f7c948 30%,#fffbe6 100%);
+  color: #624111;
+  font-weight: 600;
+  font-size: 1.11rem;
+  border-top-right-radius: 1.1em;
+  border-bottom-right-radius: 1.8em;
+  border-top-left-radius: 0.55em;
+  box-shadow: 0 3px 16px 2px #dab457a7;
+  text-decoration: none;
+  font-family: inherit;
+  cursor: pointer;
+  transition: 
+    box-shadow 0.18s cubic-bezier(0.4,0,0.2,1), 
+    transform 0.13s;
+  outline: none;
+}
+.solapa-potasio:hover,
+.solapa-potasio:focus {
+  box-shadow: 0 6px 24px 4px #efd672c3;
+  filter: brightness(1.09);
+  transform: scale(1.050);
+}
+
+.solapa-emoji, .corazoncito {
+  font-size: 1.33em;
+  display: inline-block;
+  animation: saltito 1.13s ease-in-out infinite;
+  animation-delay: 0.22s;
+}
+.corazoncito {
+  animation-delay: 0.66s;
+  margin-left: 0.13em;
+  margin-right: -0.38em;
+}
+@keyframes saltito {
+  0%   { transform: translateY(0);}
+  13%  { transform: translateY(-7px);}
+  19%  { transform: translateY(0);}
+  100% { transform: translateY(0);}
+}
+
+/* Panel lateral IZQUIERDA */
+.panel-potasio {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  height: 100vh;
+  max-width: 98vw;
+  width: 390px;
+  background: linear-gradient(110deg, #fffbe5 75%, #fae9b6 100%);
+  box-shadow: 5px 0 42px 2px #c6b0422b;
+  z-index: 1200;
+  transform: translateX(-105%);
+  transition: transform 0.34s cubic-bezier(.7,.03,.26,1);
+  display: flex;
+  flex-direction: column;
+  border-right: 0.5em solid #e9cb84;
+  padding: 0;
+  overflow-y: auto;
+}
+.panel-potasio.panel-abierto {
+  transform: translateX(0);
+}
+
+.panel-content {
+  margin: 0;
+  padding: 2.2em 1.35em 1.7em 1.55em;
+  font-size: 1.08em;
+  color: #6a4920;
+  font-family: inherit;
+  line-height: 1.6;
+  position: relative;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Botón de cerrar a la izquierda dentro del panel */
+.cerrar-panel {
+  position: absolute;
+  top: 13px;
+  left: 19px;
+  background: #fbd067ec;
+  color: #993f09;
+  border: 0;
+  font-size: 2em;
+  line-height: 1;
+  border-radius: 0.8em;
+  padding: 0 0.35em;
+  cursor: pointer;
+  box-shadow: 0 2px 10px #fcf7dfd9;
+  z-index: 5;
+  transition: background 0.15s, color 0.2s;
+}
+.cerrar-panel:hover, .cerrar-panel:focus {
+  background: #ffe8a1;
+  color: #da890d;
+}
+
+/* Mobile optimización */
+@media (max-width: 650px) {
+  .solapa-potasio { 
+    bottom: 82px;
+    font-size: 0.97rem;
+    padding: 0.8em 1.12em;
+  }
+  .panel-potasio {
+    width: 98vw;
+    min-width: 0;
+    max-width: 100vw;
+    border-right-width: 0.2em;
+    padding-left: 0;
+  }
+  .panel-content{
+    padding: 2.2em 0.75em 1.5em 0.9em;
+    font-size: 1em;
+  }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  var btn = document.getElementById("btnPotasioSolapa");
+  var panel = document.getElementById("panelPotasio");
+  var cerrar = document.getElementById("cerrarPanelPotasio");
+  btn.addEventListener("click", function(){
+    panel.classList.add("panel-abierto");
+    document.body.style.overflow = "hidden"; // Evita scroll de fondo
+  });
+  cerrar.addEventListener("click", function(){
+    panel.classList.remove("panel-abierto");
+    document.body.style.overflow = ""; // Restaura scroll
+  });
+  // Cierra con ESC
+  document.addEventListener('keydown', function(e){
+    if (panel.classList.contains("panel-abierto") && (e.key === "Escape")) {
+      panel.classList.remove("panel-abierto");
+      document.body.style.overflow = "";
+    }
+  });
+  // Cierra al clickear fuera del panel
+  panel.addEventListener("click", function(e){
+    if(e.target === panel){
+      panel.classList.remove("panel-abierto");
+      document.body.style.overflow = "";
+    }
+  });
+});
+</script>
 
 </body>
 </html>
