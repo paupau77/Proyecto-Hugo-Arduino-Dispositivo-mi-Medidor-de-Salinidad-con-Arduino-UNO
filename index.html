@@ -679,7 +679,7 @@ body {
   </nav>
 <div class="main-wrapper">
   <!-- INICIO -->
-  <main class="section active" id="section-inicio">
+  <main id="version-salinidad" class="section active" id="section-inicio">
     <div id="version-salinidad" class="fade-in">
 <h1>Proyecto Hugo💚</h1>
     <p>
@@ -1219,21 +1219,33 @@ function toggleSidebar() {
 
 <script>
 function activarModoPotasio() {
-  // 1. Intercambiar pantallas
-  document.getElementById('version-salinidad').classList.add('hidden');
-  document.getElementById('version-potasio').classList.remove('hidden');
-  
-  // 2. Cambiar color de la web de Turquesa a Dorado
-  document.documentElement.style.setProperty('--color-principal', '#bf953f');
-  
-  // 3. CAMBIAR LA SOLAPA AUTORA (Fechas)
-  // Busca el texto que dice "Agosto - Diciembre 2025" y ponle class="fecha-autora"
-  const fechas = document.querySelectorAll('.fecha-autora');
-  fechas.forEach(f => f.innerText = "Septiembre 2025 - 2026");
+  // 1. Ocultar la versión de Salinidad
+  const salinidad = document.getElementById('version-salinidad');
+  if(salinidad) {
+    salinidad.style.display = 'none';
+  }
 
-  // 4. Subir al inicio y cerrar sidebar
+  // 2. Mostrar la versión de Potasio
+  const potasio = document.getElementById('version-potasio');
+  if(potasio) {
+    potasio.classList.remove('hidden');
+    potasio.style.display = 'block';
+  }
+
+  // 3. Cambiar los colores de Turquesa a Dorado
+  document.documentElement.style.setProperty('--turquesa', '#bf953f');
+  document.documentElement.style.setProperty('--aqua-strong', '#b38728');
+  document.documentElement.style.setProperty('--aqua', '#fcf6ba');
+
+  // 4. Actualizar la fecha de la autora
+  const fechas = document.querySelectorAll('.fecha-autora');
+  fechas.forEach(f => {
+    f.innerText = "Septiembre 2025 - 2026";
+  });
+
+  // 5. Cerrar el menú lateral y subir al inicio
+  toggleSidebar();
   window.scrollTo({top: 0, behavior: 'smooth'});
-  if (typeof toggleSidebar === "function") toggleSidebar();
 }
 </script>
 
