@@ -134,6 +134,7 @@ nav {
   }
 }
 main, .section {
+  display: none;
   max-width: 900px;
   margin: auto;
   padding: 1.5rem 1rem 0 1rem;
@@ -287,6 +288,15 @@ a.btn:hover {
 .card svg {
   flex-shrink: 0;
 }
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
 .section
   display: none;
   max-width: 1100px;
