@@ -377,7 +377,7 @@ body {
 .logo-heart-circle {
   width: 32px;
   height: 32px;
-
+  
   /* Antes era azul al final (#3b82f6), ahora es verde esmeralda (#10b981) */
   background: linear-gradient(135deg, #2dd4bf 0%, #10b981 100%); 
   border-radius: 50%;
@@ -511,48 +511,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Colores y Animaciones */
-:root {
-  --color-principal: #06b6d4; 
-  --accent-gold: #bf953f; 
-}
-.hidden { display: none !important; }
-.fade-in { animation: fadeIn 0.8s ease-in-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Diseño de la Carta de Homenaje */
-.homenaje-box {
-  background: #fffaf0; 
-  border-left: 5px solid var(--accent-gold);
-  padding: 30px;
-  border-radius: 0 20px 20px 0;
-  margin: 40px 0;
-  box-shadow: 0 10px 25px rgba(184, 134, 11, 0.1);
-  color: #422006;
-}
-
-/* Tarjetas de Componentes Premium */
-.card-potasio {
-  background: white;
-  padding: 25px;
-  border-radius: 20px;
-  border: 1px solid #f1f5f9;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-  transition: all 0.3s ease;
-}
-.card-potasio:hover {
-  border-color: var(--accent-gold);
-  transform: translateY(-5px);
-}
-
-
-main.section.active {
-  width: 100%;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
 
 /* ===============================
    RESPONSIVE NAVBAR – UNA SOLA LÍNEA
@@ -602,7 +560,6 @@ main.section.active {
   </style>
 </head>
 <body>
-
 <div id="hearts-container"></div>
 
 <!-- Fondo electrónico / circuito -->
@@ -650,7 +607,7 @@ main.section.active {
       <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
     </svg>
   </div>
-
+  
   <span class="font-bold font-green" style="font-size:1.4em;">Proyecto Hugo</span>
 </div>
 
@@ -689,12 +646,7 @@ main.section.active {
 <div class="main-wrapper">
   <!-- INICIO -->
   <main class="section active" id="section-inicio">
-    <div id="version-salinidad" style="flex: 1; padding: 40px 20px; max-width: 1100px; margin: 0 auto; width: 100%;">
-
-<h1>Proyecto Hugo💚</h1>
-<button onclick="mostrarPotasio()" class="btn">
-VER POTASIO
-</button>
+    <h1>Proyecto Hugo💚</h1>
     <p>
       Este proyecto es un <strong>medidor de salinidad experimental</strong> basado en Arduino UNO,
       orientado a aplicaciones educativas, científicas y de prototipado.
@@ -767,7 +719,7 @@ VER POTASIO
 </li>
     </ul>
     <h2>Enfoque</h2>
-        <p>
+    <p>
       Proyecto desarrollado con un profundo sentido humano y compromiso social,
       pensado para aprendizaje, divulgación científica y exploración tecnológica
       en áreas como salud, química y biología.
@@ -796,103 +748,6 @@ VER POTASIO
       </a>
     </p>
   </main>
-<main class="section" id="section-potasio">
-
-    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
-        <img src="1000390871.png" alt="Corazón" style="width: 70px; height: auto;">
-        <div>
-            <h1 style="color: var(--accent-gold); font-family: 'Outfit'; font-size: 2.8rem; margin: 0;">Proyecto Hugo<span style="color: #22c55e;">💚</span></h1>
-            <p style="color: #64748b; font-size: 1.2rem; margin: 5px 0 0;">Medidor de Potasio (K+) Experimental</p>
-        </div>
-    </div>
-
-    <div class="homenaje-box">
-        <h3 style="font-family: 'Outfit'; margin-top: 0; color: #854d0e;">El Potasio como acto de amor</h3>
-        <p>Proyecto desarrollado con un profundo sentido humano y compromiso social, pensado para aprendizaje, divulgación científica y exploración tecnológica en áreas como salud, química y biología.</p>
-
-<p>Este proyecto siempre fue mucho más que electrónica.</p>
-
-<p>Nunca fue solo medir valores, mostrar números o programar un microcontrolador. Desde el primer día, fue una forma de cuidar.</p>
-
-<p>Cuando pensé este dispositivo, lo hice desde el amor y desde el miedo. Desde ese impulso profundo que aparece cuando alguien que amás podría estar en riesgo, y vos no querés quedarte de brazos cruzados. El potasio, como electrolito esencial, apareció en este camino de la misma manera que apareció todo lo demás: como una preocupación real, concreta, humana.</p>
-
-<p>Hugo, tenía problemas renales y dificultades para regular su potasio. Y cuando alguien tiene un riñón solo y que no funciona como debería, el potasio deja de ser una palabra técnica y volverse algo vital, serio, delicado, incluso peligroso. Un valor alto o bajo puede significar arritmias, debilidad, complicaciones graves. Puede significar una urgencia. Puede significar miedo.</p>
-
-<p>Y yo tenía miedo.</p>
-
-<p>Miedo de que algo le pasara a Hugo quien Agus tamto amaba. Miedo de no poder hacer nada. Miedo de perder.</p>
-
-<p>Medir potasio, entonces, no nació de un paper ni de una tabla clínica. Nació del deseo profundo de anticiparse al daño, de prevenir, de acompañar. De cuidar antes de que sea tarde. De ofrecer una herramienta, por más pequeña que fuera, que ayudara a entender el cuerpo y sus señales.</p>
-
-<p>Este medidor de potasio es una extensión natural de ese mismo amor que dio origen al proyecto original. Es el mismo corazón, pero con más experiencia. Es la misma intención, pero con más conocimiento. Es la evolución de una idea que siempre quiso lo mismo: proteger.</p>
-
-<p>Porque no todas las personas tienen acceso fácil a controles constantes. Porque no todas las familias pueden pagar estudios frecuentes. Porque no todos los cuerpos son escuchados a tiempo.</p>
-
-<p>Este dispositivo intenta, humildemente, democratizar el monitoreo de un parámetro vital. No reemplaza a un médico, no pretende ser infalible. Pero acompaña. Advierte. Da información. Y a veces, eso ya es muchísimo. Medir potasio, en este contexto, es un acto de amor técnico.</p>
-
-<p>Es decir: me importa tu salud. Es decir: quiero ayudarte a vivir mejor. Es decir: tu cuerpo vale.</p>
-
-<p>Este proyecto nació del amor por una persona, pero creció para abrazar a muchas. Y aunque su origen sea íntimo, su propósito es colectivo.</p>
-
-        <p><b>"Porque a veces cuidar también es crear. Y medir también es amar." 💖</b></p>
-<blockquote style="border-left: 4px solid #bf953f; padding-left: 15px; font-style: italic;">
-         "A veces el amor también se expresa con circuitos, con sensores..."
-      </blockquote>
-    </div>
-
-    <a href="https://github.com/paupau77/Proyecto-Hugo-Medidor-de-Salinidad-con-Arduino-UNO/tree/ProyectoHugoMedidorPotasio" target="_blank" style="text-decoration: none;">
-        <button style="width: 100%; padding: 18px; background: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); color: #422006; border: none; border-radius: 15px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 10px 20px rgba(184, 134, 11, 0.2);">
-            <span>✨ NUEVO: Medidor de POTASIO ✨</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-    </a>
-    <div style="margin-top: 60px;">
-        <h2 style="color: var(--accent-gold); font-family: 'Outfit'; border-bottom: 2px solid #fcf6ba; padding-bottom: 10px; display: flex; align-items: center; gap: 10px;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/></svg>
-            Hardware y Componentes
-        </h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 25px;">
-            <div class="card-potasio">
-                <h4 style="margin: 0; color: #1e293b;">LM358 (Op-Amp)</h4>
-                <p style="color: #64748b; font-size: 0.9rem; margin-top: 10px;">Acondicionador de señal para el electrodo selectivo de Potasio (ISE).</p>
-            </div>
-            <div class="card-potasio">
-                <h4 style="margin: 0; color: #1e293b;">Arduino UNO</h4>
-                <p style="color: #64748b; font-size: 0.9rem; margin-top: 10px;">Cerebro del sistema. Procesa la lógica y muestra datos en mmol/L.</p>
-            </div>
-        </div>
-    </div>
-
-    <div style="margin-top: 60px; padding-bottom: 40px;">
-        <h2 style="color: var(--accent-gold); font-family: 'Outfit';">🌍 Visión y Valor Social</h2>
-        <div style="display: flex; flex-direction: column; gap: 25px; margin-top: 25px;">
-            <div style="display: flex; gap: 15px;">
-                <div style="min-width: 40px; height: 40px; background: #fef3c7; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #d97706;">
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                </div>
-                <p style="margin: 0; color: #475569;"><b>Democratización:</b> Monitoreo accesible para zonas con recursos limitados.</p>
-            </div>
-            <div style="display: flex; gap: 15px;">
-                <div style="min-width: 40px; height: 40px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #16a34a;">
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-                </div>
-                <p style="margin: 0; color: #475569;"><b>Investigación Científica:</b> Herramienta para exploración en química y biología.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-  </section>
-  </main>
-<div class="sidebar">  <button onclick="mostrarInicio()">Inicio</button>
-   <button onclick="mostrarComponentes()">Componentes</button>
-   <button onclick="mostrarVision()">Visión</button>
-
-   <button onclick="activarModoPotasio()" style="width: 100%; margin-top: 15px; padding: 15px; background: linear-gradient(45deg, #bf953f, #fcf6ba, #aa771c); color: #422006; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3); transition: transform 0.2s;">
-  ✨ VER MEDIDOR DE POTASIO ✨
-</button>
-
-</div>
 
   <!-- COMPONENTES -->
   <section class="section" id="section-componentes">
@@ -969,7 +824,7 @@ VER POTASIO
     <div class="card-grid">
       <div class="card">
         <!-- Globe icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe-icon lucide-globe"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe-icon lucide-globe"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
         <div>
           <h3 class="font-bold" style="color:#334155;">Democratiza la medición</h3>
           <p>Usa <span class="font-bold">componentes accesibles y económicos</span>, permitiendo que cualquier persona (bioquímico, paciente renal, deportista, estudiante o docente) pueda medir la conductividad de una muestra y acceder a la ciencia.</p>
@@ -1060,17 +915,15 @@ VER POTASIO
       <p style="text-align:center;">
         Este proyecto es un prototipo funcional con base sólida, creado con esfuerzo, amor, pasión y cuidado, que espera convertirse en una herramienta útil en monitoreo de líquidos biológicos, aplicaciones en química, biología, monitoreo ambiental y salud.
       </p>
-  <div style="display:flex;align-items:center;gap:.5em;margin-top:1em;">
+      <div style="display:flex;align-items:center;gap:.5em;margin-top:1em;">
         <!-- Heart icon -->
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-pulse-icon lucide-heart-pulse"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
         <span class="font-pink font-bold">Este dispositivo no solo mide, también ama y cuida. Gracias por acompañarme.</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-pulse-icon lucide-heart-pulse"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
       </div>
     </div>
-</div>
-    </section>
-</div> 
- <footer class="footer">
+  </section>
+  </div> <footer class="footer">
     Hecho con 💚 por @Paupau77
     <br />
     © 2026 Paulina Juich. Todos los derechos reservados.
@@ -1087,7 +940,7 @@ VER POTASIO
         document.querySelectorAll('.navbar-links button').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
         // Hide all sections
-                document.querySelectorAll('.section, main.section').forEach(sec => sec.classList.remove('active'));
+        document.querySelectorAll('.section, main.section').forEach(sec => sec.classList.remove('active'));
         // Show selected section
         document.getElementById('section-' + this.dataset.section).classList.add('active');
         // Scroll to top for better UX
@@ -1101,7 +954,7 @@ console.log("Script de corazones cargado"); // Esto te dirá en la consola si el
 
 function createHeart() {
   const container = document.getElementById('hearts-container');
-
+  
   if (!container) {
     console.error("No se encontró el contenedor #hearts-container");
     return;
@@ -1118,9 +971,9 @@ function createHeart() {
   heart.style.left = Math.random() * 100 + 'vw';
   heart.style.width = size + 'px';
   heart.style.animationDuration = (Math.random() * 5 + 10) + 's';
-
+  
   container.appendChild(heart);
-
+  
   setTimeout(() => heart.remove(), 15000);
 }
 
@@ -1146,7 +999,7 @@ window.onload = () => {
   <div class="animate-blob" style="position: absolute; bottom: 10%; right: -5%; width: 150px; height: 150px; background: #ccfbf1; border-radius: 50%; filter: blur(40px); opacity: 0.3; pointer-events: none; animation-delay: 2s;"></div>
 
   <div style="position: relative; z-index: 2; display: flex; flex-direction: column; gap: 32px;">
-
+    
     <div style="margin-top: 40px;">
       <div style="display: flex; items-center; gap: 12px; margin-bottom: 16px;">
         <span style="background: #fff1f2; padding: 10px; border-radius: 12px; color: #f43f5e; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(244, 63, 94, 0.15);">
@@ -1157,13 +1010,13 @@ window.onload = () => {
 </span>
         <h2 style="font-size: 1.5rem; font-weight: 800;   color: var(--turquesa); margin: 0;">Proyecto Hugo<span style="color: #22c55e;">💚</span></h2>
       </div>
-
+      
       <p style="color: #475569; line-height: 1.6; font-size: 1.1rem; margin-bottom: 16px;">
         "A veces el amor también se expresa con circuitos, sensores, pantallas y datos..."
       </p>
 
     <div style="display: flex; flex-wrap: wrap; gap: 12px 16px; font-size: 0.8rem; color: #64748b; margin-top: 8px;">
-
+    
     <span style="display: flex; align-items: center; gap: 4px; white-space: nowrap;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0aa3a3" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M15 2v2M9 2v2M20 15h2M20 9h2M15 20v2M9 20v2M2 15h2M2 9h2"/></svg>
         Arduino UNO
@@ -1189,7 +1042,7 @@ window.onload = () => {
     <div class="insta-card-wrapper" style="position: relative; width: 100%;">
       <div class="insta-glow-effect"></div>
       <div style="position: relative; background: white; border: 1px solid #f1f5f9; padding: 24px; border-radius: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 16px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
-
+        
         <div style="background: linear-gradient(to top right, #facc15, #ef4444, #9333ea); padding: 12px; border-radius: 50%; color: white;">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
         </div>
@@ -1225,31 +1078,13 @@ window.onload = () => {
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
+  
+  // clase 'active' para mover la solapa
   sidebar.classList.toggle('active');
   overlay.classList.toggle('active');
 }
-
-/* --- SISTEMA DE SECCIONES --- */
-function mostrarSeccion(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-function mostrarInicio() {
-  mostrarSeccion('section-inicio');
-}
-
-function mostrarComponentes() {
-  mostrarSeccion('section-componentes');
-}
-
-function mostrarVision() {
-  mostrarSeccion('section-vision');
-}
-
-function mostrarPotasio() {
-  mostrarSeccion('section-potasio');
-}
 </script>
+
+
 </body>
 </html>
