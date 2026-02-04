@@ -135,8 +135,18 @@ Su figura estuvo presente como referencia de valores que atraviesan todo el desa
 
 ## ⚡ Acondicionamiento de Señal (LM358)
 
-Se utiliza el **LM358** para tratar la señal antes de ser procesada por el Arduino.
-En el diagrama "Reemplazo Real Electrodo", se muestra cómo el potenciómetro se sustituye 1:1 por electrodos reales ($K^+$ y REF), permitiendo que el proyecto escale a una aplicación real sin cambios en el código.
+El circuito utiliza un **Amplificador Operacional LM358 configurado como seguidor de voltaje (buffer)** para el acondicionamiento de la señal proveniente del electrodo de potasio (o su simulación mediante potenciómetro).
+
+En esta configuración, la salida del LM358 se retroalimenta directamente a la entrada inversora, lo que permite:
+
+- Replicar el voltaje de entrada sin ganancia (ganancia ≈ 1)
+- Aislar eléctricamente al electrodo del ADC del Arduino
+- Reducir el efecto de impedancias altas propias de electrodos iónicos
+- Mejorar la estabilidad y repetibilidad de la medición
+
+De esta manera, el Arduino recibe una señal estable, continua y proporcional, adecuada para su conversión analógica-digital.
+
+En el diagrama “Reemplazo Real Electrodo”, el potenciómetro se sustituye 1:1 por electrodos reales ($K^+$ y REF), manteniendo el mismo esquema de acondicionamiento y sin requerir cambios en el código.
 
 ---
 
