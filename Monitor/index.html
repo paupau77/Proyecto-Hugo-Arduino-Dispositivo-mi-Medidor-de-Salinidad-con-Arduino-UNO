@@ -535,21 +535,44 @@
         window.onload = function() {
             initChart(false);
         };
-// ===== POTASIO (K+) - SOLO INTERPRETACIÓN =====
+// ===============================
+// POTASIO CORRECTO (NO ROMPE NADA)
+// ===============================
 
-// Conversión voltaje → potasio
-// Misma señal que salinidad (A0 luego del LM358)
-function voltageToPotassium(v) {
-  // modelo simple, ajustable luego
-  // 0–5V  →  0–10 mEq/L
-  return v * 2;
+// conversión simple desde el MISMO voltaje que usa salinidad
+function potassiumFromVoltage(voltage) {
+  // 0–5V -> 0–10 mEq/L (modelo experimental)
+  return voltage * 2;
 }
 
-// Ejemplo de uso (NO rompe nada existente)
-function getPotassiumFromA0(rawAnalog) {
-  const voltage = rawAnalog * (5.0 / 1023.0);
-  return voltageToPotassium(voltage);
-}
+// ---- PARCHE SEGURO ----
+// Esto se ejecuta DESPUÉS de tu update normal
+const _originalUpdate = updateSimulation;
+
+updateSimulation = function () {
+  // ejecuta TODO lo que ya funcionaba
+  _originalUpdate();
+
+  // si estamos en modo potasio:
+  if (mode === "potassium") {
+
+    // usa el mismo voltaje que ya existe
+    const k = potassiumFromVoltage(currentVoltage).toFixed(1);
+
+    // muestra potasio
+    document.getElementById("main-value").innerText = k;
+    document.getElementById("value-label").innerText = "Potasio (K+)";
+    document.getElementById("lcd-line-1").innerText =
+      `Potasio: ${k} mEq/L`;
+
+    // APAGA temperatura y pH (SIN BORRAR NADA)
+    if (document.getElementById("temp-value"))
+      document.getElementById("temp-value").innerText = "--.-";
+
+    if (document.getElementById("ph-value"))
+      document.getElementById("ph-value").innerText = "--";
+  }
+};
     </script>
 </body>
 </html>
