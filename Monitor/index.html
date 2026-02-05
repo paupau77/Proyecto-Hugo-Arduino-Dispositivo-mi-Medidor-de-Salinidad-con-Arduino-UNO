@@ -1,55 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Hugo 💚 - Monitor de Salinidad y Potasio</title>
-    
-    <!-- Tailwind CSS (Diseño) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Chart.js (Gráficos) -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Lucide Icons (Iconos) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proyecto Hugo 💚 - Monitor de Salinidad y Potasio</title>
 
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        
-        /* Animaciones personalizadas */
-        .fade-in { animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .lcd-screen {
-            background-color: #8ea87c;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-            border: 8px solid #7a8f6b;
-            position: relative;
-        }
-        .lcd-glare {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
-        }
-    </style>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        emerald: { 50: '#ecfdf5', 100: '#d1fae5', 500: '#10b981', 600: '#059669', 700: '#047857', 900: '#064e3b' },
-                        slate: { 800: '#1e293b', 900: '#0f172a' }
-                    }
-                }
-            }
-        }
-    </script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body { font-family:'Inter',sans-serif }
+.font-mono{font-family:'JetBrains Mono',monospace}
+.lcd-screen{background:#8ea87c;border:8px solid #7a8f6b}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+<body class="bg-slate-50 text-slate-900">
+         
 
     <!-- Navbar -->
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
@@ -374,167 +344,91 @@
     </footer>
 
     <!-- Lógica de la Aplicación -->
-    <script>
-        // --- Configuración Inicial ---
-        lucide.createIcons();
-        let currentMode = 'salinity'; // 'salinity' or 'potassium'
-        let chartInstance = null;
-        
-        // --- Navegación (Tabs) ---
-        function switchTab(tabId) {
-            // Ocultar todos los contenidos
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            // Mostrar el seleccionado
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-            
-            // Actualizar botones del menú desktop
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('bg-emerald-50', 'text-emerald-700');
-                btn.classList.add('text-slate-600');
-            });
-            const activeBtn = document.getElementById(`btn-${tabId}`);
-            if(activeBtn) {
-                activeBtn.classList.add('bg-emerald-50', 'text-emerald-700');
-                activeBtn.classList.remove('text-slate-600');
-            }
+   <script>
+lucide.createIcons();
 
-            // Cerrar menú móvil si está abierto
-            document.getElementById('mobile-menu').classList.add('hidden');
-        }
+let currentMode = "salinity";
+let chartInstance = null;
 
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
+/* -------------------------------
+   MODELO ELECTRÓNICO REAL
+-------------------------------- */
+let voltage = 2.5;     // salida buffer LM358
+let targetV = 2.5;
 
-        // --- Lógica del Dashboard (Modos) ---
-        function setMode(mode) {
-            currentMode = mode;
-            const isK = mode === 'potassium';
-            
-            // Actualizar UI de botones
-            const btnSal = document.getElementById('btn-mode-salinity');
-            const btnPot = document.getElementById('btn-mode-potassium');
-            const title = document.getElementById('mode-title');
-            
-            if (isK) {
-                btnSal.className = "px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 text-slate-500 hover:text-slate-700";
-                btnPot.className = "px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 bg-white shadow-sm text-amber-600 flex items-center gap-2";
-                title.innerText = "Potasio (K+)";
-                title.className = "text-amber-500 transition-colors duration-500";
-                document.getElementById('lcd-label').innerText = "K+ ION:";
-                document.getElementById('lcd-status').innerText = ">> MIDIENDO K+ <<";
-                document.getElementById('chart-title-text').innerText = "Potasio";
-                document.getElementById('analysis-text').innerText = "Monitoreo de electrolitos activo (Rama Experimental Agosto 2025). Los valores de Potasio se encuentran dentro del rango esperado.";
-            } else {
-                btnSal.className = "px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 bg-white shadow-sm text-emerald-700";
-                btnPot.className = "px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 text-slate-500 hover:text-slate-700 flex items-center gap-2";
-                title.innerText = "Salinidad";
-                title.className = "text-emerald-600 transition-colors duration-500";
-                document.getElementById('lcd-label').innerText = "SALINIDAD:";
-                document.getElementById('lcd-status').innerText = ">> SISTEMA OK <<";
-                document.getElementById('chart-title-text').innerText = "Conductividad";
-                document.getElementById('analysis-text').innerText = "La conductividad eléctrica muestra estabilidad. Compensación de temperatura activa a 25°C.";
-            }
+function updateVoltage(){
+  targetV += (Math.random()-0.5)*0.15;
+  targetV = Math.max(0,Math.min(5,targetV));
+  voltage += (targetV-voltage)*0.1;
+}
 
-            // Reiniciar gráfico con nuevo color y datos
-            initChart(isK);
-        }
+/* calibraciones */
+function voltageToEC(v){
+  return (v*480).toFixed(0);   // µS (ejemplo)
+}
 
-        // --- Gráficos con Chart.js ---
-        function initChart(isPotassium) {
-            const ctx = document.getElementById('mainChart').getContext('2d');
-            const color = isPotassium ? '#f59e0b' : '#10b981'; // Amber vs Emerald
-            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-            gradient.addColorStop(0, isPotassium ? 'rgba(245, 158, 11, 0.3)' : 'rgba(16, 185, 129, 0.3)');
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+function voltageToK(v){
+  return (v*2.0).toFixed(2);   // mEq/L
+}
 
-            if (chartInstance) {
-                chartInstance.destroy();
-            }
+/* -------------------------------
+   MODO
+-------------------------------- */
+function setMode(mode){
+  currentMode = mode;
+  initChart(mode==="potassium");
+}
 
-            // Datos iniciales vacíos
-            const initialData = Array(20).fill(null);
-            const initialLabels = Array(20).fill('');
+/* -------------------------------
+   GRÁFICO
+-------------------------------- */
+function initChart(isK){
+  const ctx = document.getElementById("mainChart").getContext("2d");
+  if(chartInstance) chartInstance.destroy();
 
-            chartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: initialLabels,
-                    datasets: [{
-                        label: isPotassium ? 'Potasio (mM)' : 'Conductividad (uS)',
-                        data: initialData,
-                        borderColor: color,
-                        backgroundColor: gradient,
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    animation: false,
-                    interaction: { intersect: false, mode: 'index' },
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { display: false },
-                        y: { 
-                            display: true,
-                            grid: { color: '#f1f5f9' },
-                            suggestedMin: isPotassium ? 3 : 1000,
-                            suggestedMax: isPotassium ? 6 : 1400
-                        }
-                    }
-                }
-            });
-        }
+  chartInstance = new Chart(ctx,{
+    type:"line",
+    data:{labels:Array(20).fill(""),datasets:[{
+      data:Array(20).fill(null),
+      borderColor:isK?"#f59e0b":"#10b981",
+      tension:.4,
+      pointRadius:0
+    }]},
+    options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{display:false}}}
+  });
+}
 
-        // --- Simulación de Datos en Tiempo Real ---
-        setInterval(() => {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('es-AR', { hour12: false, minute: '2-digit', second: '2-digit' });
-            
-            // Generar valores aleatorios
-            const ec = (1200 + Math.random() * 100 - 50).toFixed(0);
-            const ph = (7.0 + Math.random() * 0.4 - 0.2).toFixed(2);
-            const temp = (24 + Math.random() * 1 - 0.5).toFixed(1);
-            const k = (4.5 + Math.random() * 0.8 - 0.4).toFixed(2);
+/* -------------------------------
+   LOOP PRINCIPAL
+-------------------------------- */
+setInterval(()=>{
+  updateVoltage();
 
-            // Actualizar DOM (Pantalla LCD y Sensores)
-            const isK = currentMode === 'potassium';
-            document.getElementById('lcd-value').innerText = isK ? `${k} mM` : `${ec} uS`;
-            document.getElementById('lcd-temp').innerText = `${temp} C`;
-            document.getElementById('lcd-ph').innerText = ph;
-            document.getElementById('card-temp').innerText = `${temp}°`;
-            document.getElementById('card-ph').innerText = ph;
+  const ec = voltageToEC(voltage);
+  const k  = voltageToK(voltage);
 
-            // Actualizar Gráfico
-            if (chartInstance) {
-                const val = isK ? k : ec;
-                
-                // Mover datos (efecto deslizante)
-                const dataArr = chartInstance.data.datasets[0].data;
-                const labelsArr = chartInstance.data.labels;
-                
-                dataArr.push(val);
-                labelsArr.push(timeStr);
-                
-                if (dataArr.length > 20) {
-                    dataArr.shift();
-                    labelsArr.shift();
-                }
-                
-                chartInstance.update();
-            }
+  const isK = currentMode==="potassium";
 
-        }, 1000);
+  document.getElementById("lcd-value").innerText =
+    isK ? `${k} mEq/L` : `${ec} uS`;
 
-        // --- Inicialización ---
-        window.onload = function() {
-            initChart(false);
-        };
-    </script>
+  document.getElementById("lcd-temp").innerText =
+    isK ? "--.-" : "25.0 C";
+
+  document.getElementById("lcd-ph").innerText =
+    isK ? "--" : "7.00";
+
+  if(chartInstance){
+    const arr = chartInstance.data.datasets[0].data;
+    arr.push(isK?k:ec);
+    if(arr.length>20) arr.shift();
+    chartInstance.update();
+  }
+
+},1000);
+
+window.onload=()=>initChart(false);
+</script>
+
 </body>
 </html>
