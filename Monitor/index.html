@@ -536,41 +536,35 @@
             initChart(false);
         };
 // ===============================
-// POTASIO CORRECTO (NO ROMPE NADA)
+// PARCHE FINAL: POTASIO LIMPIO
 // ===============================
 
-// conversión simple desde el MISMO voltaje que usa salinidad
-function potassiumFromVoltage(voltage) {
-  // 0–5V -> 0–10 mEq/L (modelo experimental)
-  return voltage * 2;
-}
-
-// ---- PARCHE SEGURO ----
-// Esto se ejecuta DESPUÉS de tu update normal
-const _originalUpdate = updateSimulation;
+// Guardamos tu update original
+const __originalUpdateSimulation = updateSimulation;
 
 updateSimulation = function () {
-  // ejecuta TODO lo que ya funcionaba
-  _originalUpdate();
+  // corre TODO tu código original
+  __originalUpdateSimulation();
 
-  // si estamos en modo potasio:
+  // si estamos en modo potasio
   if (mode === "potassium") {
 
-    // usa el mismo voltaje que ya existe
-    const k = potassiumFromVoltage(currentVoltage).toFixed(1);
+    // --- APAGAR TEMPERATURA ---
+    document
+      .querySelectorAll('[id*="temp"], [class*="temp"]')
+      .forEach(el => el.textContent = "--.-");
 
-    // muestra potasio
-    document.getElementById("main-value").innerText = k;
-    document.getElementById("value-label").innerText = "Potasio (K+)";
-    document.getElementById("lcd-line-1").innerText =
-      `Potasio: ${k} mEq/L`;
+    // --- APAGAR PH ---
+    document
+      .querySelectorAll('[id*="ph"], [class*="ph"]')
+      .forEach(el => el.textContent = "--");
 
-    // APAGA temperatura y pH (SIN BORRAR NADA)
-    if (document.getElementById("temp-value"))
-      document.getElementById("temp-value").innerText = "--.-";
+    // --- FORZAR LCD ---
+    const lcd1 = document.getElementById("lcd-line-1");
+    if (lcd1) lcd1.textContent = "Potasio (K+)";
 
-    if (document.getElementById("ph-value"))
-      document.getElementById("ph-value").innerText = "--";
+    const lcd2 = document.getElementById("lcd-line-2");
+    if (lcd2) lcd2.textContent = "Sin pH / Temp";
   }
 };
     </script>
