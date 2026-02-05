@@ -535,6 +535,21 @@
         window.onload = function() {
             initChart(false);
         };
+// ===== POTASIO (K+) - SOLO INTERPRETACIÓN =====
+
+// Conversión voltaje → potasio
+// Misma señal que salinidad (A0 luego del LM358)
+function voltageToPotassium(v) {
+  // modelo simple, ajustable luego
+  // 0–5V  →  0–10 mEq/L
+  return v * 2;
+}
+
+// Ejemplo de uso (NO rompe nada existente)
+function getPotassiumFromA0(rawAnalog) {
+  const voltage = rawAnalog * (5.0 / 1023.0);
+  return voltageToPotassium(voltage);
+}
     </script>
 </body>
 </html>
