@@ -535,27 +535,6 @@
         window.onload = function() {
             initChart(false);
         };
-// ===============================
-// APAGADO FORZADO TEMP / pH EN K+
-// ===============================
-
-setInterval(() => {
-  if (mode === "potassium") {
-    // Oculta TODO lo que huela a temperatura o pH
-    document.querySelectorAll(
-      '[id*="temp"], [class*="temp"], [id*="ph"], [class*="ph"]'
-    ).forEach(el => {
-      el.style.display = "none";
-    });
-  } else {
-    // En salinidad, vuelve a mostrar todo
-    document.querySelectorAll(
-      '[id*="temp"], [class*="temp"], [id*="ph"], [class*="ph"]'
-    ).forEach(el => {
-      el.style.display = "";
-    });
-  }
-}, 300);
     </script>
 </body>
 </html>
