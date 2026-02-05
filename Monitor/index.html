@@ -536,37 +536,26 @@
             initChart(false);
         };
 // ===============================
-// PARCHE FINAL: POTASIO LIMPIO
+// APAGADO FORZADO TEMP / pH EN K+
 // ===============================
 
-// Guardamos tu update original
-const __originalUpdateSimulation = updateSimulation;
-
-updateSimulation = function () {
-  // corre TODO tu código original
-  __originalUpdateSimulation();
-
-  // si estamos en modo potasio
+setInterval(() => {
   if (mode === "potassium") {
-
-    // --- APAGAR TEMPERATURA ---
-    document
-      .querySelectorAll('[id*="temp"], [class*="temp"]')
-      .forEach(el => el.textContent = "--.-");
-
-    // --- APAGAR PH ---
-    document
-      .querySelectorAll('[id*="ph"], [class*="ph"]')
-      .forEach(el => el.textContent = "--");
-
-    // --- FORZAR LCD ---
-    const lcd1 = document.getElementById("lcd-line-1");
-    if (lcd1) lcd1.textContent = "Potasio (K+)";
-
-    const lcd2 = document.getElementById("lcd-line-2");
-    if (lcd2) lcd2.textContent = "Sin pH / Temp";
+    // Oculta TODO lo que huela a temperatura o pH
+    document.querySelectorAll(
+      '[id*="temp"], [class*="temp"], [id*="ph"], [class*="ph"]'
+    ).forEach(el => {
+      el.style.display = "none";
+    });
+  } else {
+    // En salinidad, vuelve a mostrar todo
+    document.querySelectorAll(
+      '[id*="temp"], [class*="temp"], [id*="ph"], [class*="ph"]'
+    ).forEach(el => {
+      el.style.display = "";
+    });
   }
-};
+}, 300);
     </script>
 </body>
 </html>
