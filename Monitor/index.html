@@ -478,47 +478,47 @@
     }
 
     // --- Simulación ---
-    setInterval(() => {
-        const timeStr = new Date().toLocaleTimeString('es-AR', {
-            hour12: false, minute: '2-digit', second: '2-digit'
-        });
+  setInterval(() => {
+  const timeStr = new Date().toLocaleTimeString('es-AR', {
+    hour12: false, minute: '2-digit', second: '2-digit'
+  });
 
-        const ec = (1200 + Math.random() * 100 - 50).toFixed(0);
-        const ph = (7.0 + Math.random() * 0.4 - 0.2).toFixed(2);
-        const temp = (24 + Math.random() * 1 - 0.5).toFixed(1);
-        const k = (4.5 + Math.random() * 0.8 - 0.4).toFixed(2);
+  const ec = (1200 + Math.random() * 100 - 50).toFixed(0);
+  const k  = (4.5 + Math.random() * 0.8 - 0.4).toFixed(2);
+  const ph = (7.0 + Math.random() * 0.4 - 0.2).toFixed(2);
+  const temp = (24 + Math.random() * 1 - 0.5).toFixed(1);
 
-        const isK = currentMode === 'potassium';
+  const isK = currentMode === 'potassium';
 
-        // LCD principal
-        document.getElementById('lcd-value').innerText =
-            isK ? `${k} mM` : `${ec} uS`;
+  // LCD principal
+  document.getElementById('lcd-value').innerText =
+    isK ? `${k} mM` : `${ec} uS`;
 
-        // 🔥 ACÁ ESTÁ EL ARREGLO
-        if (!isK) {
-            document.getElementById('lcd-temp').innerText = `${temp} C`;
-            document.getElementById('lcd-ph').innerText = ph;
-            document.getElementById('card-temp').innerText = `${temp}°`;
-            document.getElementById('card-ph').innerText = ph;
-        } else {
-            document.getElementById('lcd-temp').innerText = "--";
-            document.getElementById('lcd-ph').innerText = "--";
-            document.getElementById('card-temp').innerText = "--";
-            document.getElementById('card-ph').innerText = "--";
-        }
+  // Temperatura y pH
+  if (!isK) {
+    document.getElementById('lcd-temp').innerText = `${temp} C`;
+    document.getElementById('lcd-ph').innerText = ph;
+    document.getElementById('card-temp').innerText = `${temp}°`;
+    document.getElementById('card-ph').innerText = ph;
+  } else {
+    document.getElementById('lcd-temp').innerText = "--";
+    document.getElementById('lcd-ph').innerText = "--";
+    document.getElementById('card-temp').innerText = "--";
+    document.getElementById('card-ph').innerText = "--";
+  }
 
-        if (chartInstance) {
-            const val = isK ? k : ec;
-            chartInstance.data.datasets[0].data.push(val);
-            chartInstance.data.labels.push(timeStr);
+  if (chartInstance) {
+    const val = isK ? k : ec;
+    chartInstance.data.datasets[0].data.push(val);
+    chartInstance.data.labels.push(timeStr);
 
-            if (chartInstance.data.datasets[0].data.length > 20) {
-                chartInstance.data.datasets[0].data.shift();
-                chartInstance.data.labels.shift();
-            }
-            chartInstance.update();
-        }
-    }, 1000);
+    if (chartInstance.data.datasets[0].data.length > 20) {
+      chartInstance.data.datasets[0].data.shift();
+      chartInstance.data.labels.shift();
+    }
+    chartInstance.update();
+  }
+}, 1000);
 
     window.onload = () => initChart(false);
 </script>
