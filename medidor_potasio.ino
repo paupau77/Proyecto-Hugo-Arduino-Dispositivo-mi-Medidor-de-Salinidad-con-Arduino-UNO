@@ -27,7 +27,7 @@ const int analogPin = A0;
 const int buttonPin = 2;
 
 // LCD: RS, E, D4, D5, D6, D7
-LiquidCrystal lcd(7, 9, 8, 10, 11, 12);
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 
 // ---------- VARIABLES ----------
 bool mode = 0; // 0 = Medición, 1 = Calibración
