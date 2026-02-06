@@ -109,7 +109,7 @@ Su figura estuvo presente como referencia de valores que atraviesan todo el desa
 | **Potenciómetro 10k** | 1 | Simulación de Electrodo K+ |
 | **Resistencias** | 3 | 10kΩ para divisor Vref y 1kΩ para filtro |
 | **Capacitor 100nF** | 1 | Filtro paso bajo para estabilidad en A0 |
-| **Pulsador** | 1 | Cambio de modo (Medición/Calibración) |
+| **Pulsador** | 1 | Función de pausa/reanudar (Hold) mediante interrupción lógica |
 
 ---
 
@@ -160,36 +160,32 @@ $$Potasio (K^+) = (2.0 \times Voltaje) - 0.5$$
 
 * **Seguridad:** El código incluye un límite para que el valor de potasio nunca sea menor a cero.
 
-### 🛠️ 2.2. Modos de Funcionamiento
+### 🛠️ 2.2. Control de Visualización (Función Hold)
 
-El pulsador permite alternar entre dos estados visuales:
+El pulsador permite gestionar la lectura en tiempo real:
 
-1.  **Modo Medición (`mode = 0`):** Muestra el nivel de potasio calculado en **mmol/L**.
-2.  **Modo Calibración (`mode = 1`):** Muestra el valor **ADC crudo** y el **voltaje** exacto detectado en A0, permitiendo ajustes técnicos precisos.
+1.  **Modo Activo:** El sistema mide y actualiza el valor de Potasio (K+) continuamente en la pantalla.
+2.  **Modo Pausa (`Hold`):** Al presionar el botón, el valor actual se congela en la pantalla y aparece el indicador **"PAUSA"**. Esto permite al usuario registrar la medición con tranquilidad sin que las variaciones del sensor alteren el dato visualizado.
 
 ---
 
 ## 💻 Código Arduino Destacado
 
-El software utiliza la librería `LiquidCrystal` y gestiona el cambio de modo mediante interrupción lógica por software:
+El software utiliza la librería `LiquidCrystal` y el pulsador permite gestionar la lectura en tiempo real:
 
 ```cpp
 
-// Cambio de modo con botón (Antirrebote simple)
-if (lastButtonState == HIGH && buttonState == LOW) {
-  mode = !mode; // Alternar entre 0 y 1
-  lcd.clear();
-  delay(300);
-}
+// Detectar cuando el botón PASA de NO presionado a PRESIONADO (Flanco de bajada)
+if (currentButtonState == LOW && lastButtonState == HIGH) {
+  pausa = !pausa; // Cambiar el estado de pausa
 
-// Modelo Matemático SIMULADO
-potassium = (2.0 * voltage) - 0.5;
+  // Limpiar el indicador de pausa si volvemos a medir
+  if (!pausa) {
+    lcd.setCursor(11, 0);
+    lcd.print("     "); 
+  }
 
-// Visualización condicional
-if (mode == 0) {
-  mostrarPotasio(potassium);
-} else {
-  mostrarCalibracion(raw, voltage);
+  delay(250); // Debounce para evitar que un solo clic se cuente como dos
 }
 ```
 
@@ -211,12 +207,10 @@ Se utiliza la librería estándar para manejar el LCD. A diferencia de versiones
 👾 2. Variables de Estado 
 
 ```cpp
-bool mode = 0; // 0 = Medición, 1 = Calibración
-float voltage = 0.0;
-float potassium = 0.0;
+bool pausa = false; // Controla si la pantalla está congelada o midiendo
 ```
 
-El código utiliza una variable booleana mode para alternar lo que el usuario ve en pantalla, permitiendo una herramienta versátil tanto para el paciente como para el técnico.
+El código utiliza una variable booleana pausa para detener la actualización del LCD, permitiendo una lectura estable del último valor capturado.
 
 ---
 
