@@ -1,8 +1,8 @@
 /*
-  Medidor experimental de Potasio (K+) con Arduino y LM358
+Medidor experimental de Potasio (K+) con Arduino y LM358
 Dispositivo experimental para medir potasio utilizando un Amplificador Operacional LM358 para el acondicionamiento de señal, siguiendo la lógica de la instrumentación analítica real.
 Autor: Paulina Juich
-  Licencia: 
+Licencia:
 Este proyecto fue desarrollado por Paulina Juich y registrado en la DNDA (Argentina) bajo el número de expediente EX-2025-78014687- el 18 de Julio de 2025.
 
 Todo el contenido de este repositorio (código fuente, diseño electrónico, documentación) se encuentra protegido por derechos de autor.
@@ -11,7 +11,7 @@ Todo el contenido de este repositorio (código fuente, diseño electrónico, doc
 
 © 2025 Paulina Juich. Todos los derechos reservados.
 
-Este diseño, documentación y código están protegidos por la legislación de propiedad intelectual. 
+Este diseño, documentación y código están protegidos por la legislación de propiedad intelectual.
 
 🧠 El uso personal, académico o educativo sin fines de lucro está permitido con atribución.
 💰 Cualquier uso comercial, distribución, modificación o integración en productos requiere una licencia paga o autorización expresa.
@@ -30,19 +30,21 @@ const int buttonPin = 2;
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 
 // ---------- VARIABLES ----------
-bool mode = 0; // 0 = Medición, 1 = Calibración
-bool lastButtonState = HIGH;
+bool pausa = false;       
+bool lastButtonState = HIGH; // Estado anterior del botón
 
 float voltage = 0.0;
 float potassium = 0.0;
 
 // ---------- SETUP ----------
 void setup() {
+  // Usamos INPUT_PULLUP para evitar resistencias externas
   pinMode(buttonPin, INPUT_PULLUP);
 
   lcd.begin(16, 2);
   lcd.clear();
 
+  // Pantalla de Inicio
   lcd.setCursor(0, 0);
   lcd.print("Medidor K+");
   lcd.setCursor(0, 1);
@@ -50,58 +52,52 @@ void setup() {
 
   delay(2000);
   lcd.clear();
+  
+  // Encabezado fijo
+  lcd.setCursor(0, 0);
+  lcd.print("Potasio K+");
 }
 
 // ---------- LOOP ----------
 void loop() {
-  bool buttonState = digitalRead(buttonPin);
+  // Leer el estado del botón (LOW si está presionado, HIGH si no)
+  bool currentButtonState = digitalRead(buttonPin);
 
-  // Cambio de modo con botón
-  if (lastButtonState == HIGH && buttonState == LOW) {
-    mode = !mode;
-    lcd.clear();
-    delay(300);
+  // Detectar cuando el botón PASA de NO presionado a PRESIONADO (Flanco de bajada)
+  if (currentButtonState == LOW && lastButtonState == HIGH) {
+    pausa = !pausa; // Cambiar el estado de pausa
+    
+    // Limpiar el indicador de pausa si volvemos a medir
+    if (!pausa) {
+      lcd.setCursor(11, 0);
+      lcd.print("     "); 
+    }
+    
+    delay(250); // Debounce para evitar que un solo clic se cuente como dos
   }
-  lastButtonState = buttonState;
+  
+  // Guardar el estado para la siguiente vuelta del loop
+  lastButtonState = currentButtonState;
 
-  // Lectura ADC
-  int raw = analogRead(analogPin);
-  voltage = raw * (5.0 / 1023.0);
+  // Si NO estamos en pausa, actualizamos la medición
+  if (!pausa) {
+    int raw = analogRead(analogPin);
+    voltage = raw * (5.0 / 1023.0);
 
-  // Modelo SIMULADO de potasio (mmol/L)
-  potassium = (2.0 * voltage) - 0.5;
+    // Modelo de potasio (Asegúrate de ajustar esta fórmula según tu LM358)
+    potassium = (2.0 * voltage) - 0.5;
 
-  // límites de seguridad
-  if (potassium < 0) potassium = 0;
+    if (potassium < 0) potassium = 0;
 
-  // Mostrar según modo
-  if (mode == 0) {
-    mostrarPotasio(potassium);
+    lcd.setCursor(0, 1);
+    lcd.print(potassium, 2);
+    lcd.print(" mmol/L       ");
+    
   } else {
-    mostrarCalibracion(raw, voltage);
+    // Si estamos en pausa, solo mostramos el texto sin borrar el valor anterior
+    lcd.setCursor(11, 0); 
+    lcd.print("PAUSA");
   }
 
-  delay(500);
-}
-
-// ---------- FUNCIONES ----------
-void mostrarPotasio(float k) {
-  lcd.setCursor(0, 0);
-  lcd.print("Potasio K+     ");
-
-  lcd.setCursor(0, 1);
-  lcd.print(k, 2);
-  lcd.print(" mmol/L       ");
-}
-
-void mostrarCalibracion(int raw, float v) {
-  lcd.setCursor(0, 0);
-  lcd.print("ADC: ");
-  lcd.print(raw);
-  lcd.print("     ");
-
-  lcd.setCursor(0, 1);
-  lcd.print("V: ");
-  lcd.print(v, 2);
-  lcd.print(" V      ");
+  delay(50); // Un delay más corto hace que el botón responda más rápido
 }
