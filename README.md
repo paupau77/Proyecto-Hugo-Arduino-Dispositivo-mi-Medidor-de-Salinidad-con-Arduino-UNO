@@ -123,6 +123,9 @@ Su figura estuvo presente como referencia de valores que atraviesan todo el desa
 
 ## 📷 Desde los simuladores (estoy trabajando en eso💪🏼✨)
 
+> NOTA: El LM358 funciona correctamente en la etapa experimental con potenciómetro.
+Para electrodos reales de ion selectivo (K⁺), se recomienda en futuras versiones un amplificador operacional con entrada FET debido a la altísima impedancia del sensor.
+
 ![Esquema de Tinkercad](esquema_tinkercad.png)
 
 *Figura 2: Esquema de la simulación de Tinkercad.*
