@@ -105,7 +105,7 @@ Su figura estuvo presente como referencia de valores que atraviesan todo el desa
 | :--- | :---: | :--- |
 | **Arduino UNO** | 1 | Microcontrolador principal |
 | **LM358 (Op-Amp)** | 1 | Acondicionador de señal del electrodo |
-| **LCD I2C** | 1 | Visualización de datos |
+| **LCD 16x2 I2C** | 1 | Visualización de datos (conexión SDA/SCL)|
 | **Potenciómetro 10k** | 1 | Simulación de Electrodo K+ |
 | **Resistencias** | 3 | 10kΩ para divisor Vref y 1kΩ para filtro |
 | **Capacitor 100nF** | 1 | Filtro paso bajo para estabilidad en A0 |
@@ -117,7 +117,7 @@ Su figura estuvo presente como referencia de valores que atraviesan todo el desa
 
 ![Esquema de conexión](esquema_conexion.png)
 
-*Figura 1: Diagrama de conexión entre Arduino, Amplificador Operacional LM358, pantalla y pulsador.*
+*Figura 1: Diagrama de conexión entre Arduino, Amplificador Operacional LM358, pantalla y pulsador. Diagrama de conexión actualizado. Se destaca el uso de bus I2C para la pantalla y un filtro RC (Resistencia 1k + Capacitor 100nF) a la salida del LM358 para limpiar la señal antes de ingresar al pin A0 del Arduino.*
 
 ---
 
@@ -174,13 +174,15 @@ El pulsador permite gestionar la lectura en tiempo real:
 
 ## 💻 Código Arduino Destacado
 
-El software utiliza la librería `LiquidCrystal` y el pulsador permite gestionar la lectura en tiempo real:
+El software ha sido optimizado para utilizar comunicación I2C, reduciendo drásticamente el cableado hacia la pantalla. Además, se implementa una lógica de lectura limpia para el botón de "Pausa".
+
+✨ Gestión del Botón y Estado (Función Hold)
 
 ```cpp
 
-// Detectar cuando el botón PASA de NO presionado a PRESIONADO (Flanco de bajada)
+// Detectar flanco de bajada (de soltado a presionado)
 if (currentButtonState == LOW && lastButtonState == HIGH) {
-  pausa = !pausa; // Cambiar el estado de pausa
+  pausa = !pausa; // Alternar estado de pausa
 
   // Limpiar el indicador de pausa si volvemos a medir
   if (!pausa) {
@@ -188,32 +190,38 @@ if (currentButtonState == LOW && lastButtonState == HIGH) {
     lcd.print("     "); 
   }
 
-  delay(250); // Debounce para evitar que un solo clic se cuente como dos
+  delay(250); // Debounce para evitar rebotes
 }
+
 ```
 
 ---
 
 ## 🧠 Funcionamiento del código 
 
-💻 1. Librerías y creación del objeto LCD
+💻 1. Librerías y Protocolo I2C
 
 ```cpp
-#include <LiquidCrystal.h>
-LiquidCrystal lcd(7, 9, 8, 10, 11, 12);
+#include <Wire.h>              
+#include <LiquidCrystal_I2C.h> 
+
+// Dirección 0x27, 16 columnas y 2 filas
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 ```
 
-Se utiliza la librería estándar para manejar el LCD. A diferencia de versiones I2C, aquí se definen los pines digitales directamente: RS, Enable y el bus de datos de 4 bits (D4-D7).
+A diferencia de la versión anterior que usaba múltiples pines digitales, ahora utilizamos la librería LiquidCrystal_I2C. Esto permite controlar la pantalla usando solo dos cables de señal (SDA y SCL).
 
 ---
 
 👾 2. Variables de Estado 
 
 ```cpp
-bool pausa = false; // Controla si la pantalla está congelada o midiendo
+bool pausa = false;       // Controla si la pantalla está congelada
+bool lastButtonState = HIGH; // Estado inicial HIGH (INPUT_PULLUP)
+
 ```
 
-El código utiliza una variable booleana pausa para detener la actualización del LCD, permitiendo una lectura estable del último valor capturado.
+Se utiliza lógica inversa para el botón: al usar INPUT_PULLUP interno del Arduino, el estado "sin presionar" es HIGH y "presionado" es LOW.
 
 ---
 
@@ -221,25 +229,32 @@ El código utiliza una variable booleana pausa para detener la actualización de
 
 ```cpp
 void setup() {
-  pinMode(buttonPin, INPUT_PULLUP);
-  lcd.begin(16, 2);
+  pinMode(buttonPin, INPUT_PULLUP); // Activa resistencia interna
+  
+  lcd.init();       // Inicia comunicación I2C
+  lcd.backlight();  // Enciende la luz de fondo
+  
+  // Mensaje de bienvenida
+  lcd.setCursor(0, 0);
   lcd.print("Medidor K+");
   lcd.setCursor(0, 1);
   lcd.print("Proyecto Hugo");
   delay(2000);
 }
 ```
-Inicializa el LCD y el botón. Muestra un mensaje inicial en memoria de Hugo para confirmar el arranque del sistema.
+Ahora inicializamos el bus I2C y encendemos la luz de fondo (backlight) explícitamente. También configuramos el pin del botón para usar la resistencia interna del Arduino, ahorrando componentes externos.
 
 ---
 
 🔁 4. loop() – El Núcleo
-Lectura del Botón: Detecta el flanco de bajada (cuando presionas) para cambiar el valor de mode.
-Procesamiento Analógico: Toma la muestra de A0, la escala a 5V y aplica la ecuación lineal de potasio.
-Visualización Condicional:
-Si mode == 0: Llama a mostrarPotasio(), enfocándose en el valor final en mmol/L.
-Si mode == 1: Llama a mostrarCalibracion(), exponiendo el valor ADC y el voltaje para ajustes de precisión.
 
+El ciclo principal realiza tres tareas fundamentales:
+1. Lectura Digital: Verifica el estado del botón con "debounce" (evita rebotes) para activar o desactivar el modo PAUSA.
+2. Adquisición de Datos: Lee el valor analógico del pin A0, que ya viene acondicionado y filtrado desde el LM358.
+3. Cálculo Matemático: Transforma el voltaje (0-5V) en concentración de potasio (mmol/L) usando la ecuación lineal calibrada:
+```
+   Potasio = (2.0 x Voltaje) - 0.5
+```
 ---
 
 ## 📚 Documentación (en progreso, estoy trabajando en eso)
