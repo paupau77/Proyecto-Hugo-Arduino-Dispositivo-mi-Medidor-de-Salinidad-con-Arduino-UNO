@@ -4,7 +4,7 @@
 ![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
 ![Electrónica](https://img.shields.io/badge/Electrónica-Analog-FA7343?style=for-the-badge&logoColor=white)
 ![Simulator](https://img.shields.io/badge/Wokwi%20%26%20Tinkercad-Online-1ABC9C?style=for-the-badge&logo=tinkercad&logoColor=white)
-![LCD 16x2](https://img.shields.io/badge/LCD-16x2-1E90FF?style=for-the-badge)
+![LCD 16x2](https://img.shields.io/badge/LCD-I2C-1E90FF?style=for-the-badge)
 ![LM358](https://img.shields.io/badge/OpAmp-LM358-yellow?style=for-the-badge)
 ![Proyecto Activo](https://img.shields.io/badge/Estado-Activo-brightgreen?style=for-the-badge)
 ![En Desarrollo](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow?style=for-the-badge)
@@ -105,7 +105,7 @@ Su figura estuvo presente como referencia de valores que atraviesan todo el desa
 | :--- | :---: | :--- |
 | **Arduino UNO** | 1 | Microcontrolador principal |
 | **LM358 (Op-Amp)** | 1 | Acondicionador de señal del electrodo |
-| **LCD 16x2** | 1 | Visualización de datos (pines 7, 8, 9, 10, 11, 12) |
+| **LCD I2C** | 1 | Visualización de datos |
 | **Potenciómetro 10k** | 1 | Simulación de Electrodo K+ |
 | **Resistencias** | 3 | 10kΩ para divisor Vref y 1kΩ para filtro |
 | **Capacitor 100nF** | 1 | Filtro paso bajo para estabilidad en A0 |
